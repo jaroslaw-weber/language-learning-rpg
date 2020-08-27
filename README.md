@@ -1,30 +1,52 @@
-# flashcard-rpg
+# language learning rpg
 
-## Project setup
+learn a language by playing rpg game!
+
+# how to play
+
+- select correct answer to attack or dodge attack
+- if you select wrong answer, your attack miss / enemy hits you
+- collect gold and buy stronger items in shop
+- level up and go to different locations
+
+# screenshots
+
+![](screenshots/1.png)
+
+![](screenshots/2.png)
+
+![](screenshots/3.png)
+
+## project setup
+
 ```
 npm install
 ```
 
-### Compiles and hot-reloads for development
+### compiles and hot-reloads for development
+
 ```
 npm run serve
 ```
 
-### Compiles and minifies for production
+### compiles and minifies for production
+
 ```
 npm run build
 ```
 
-### Run your tests
+### run your tests
+
 ```
 npm run test
 ```
 
-### Lints and fixes files
+### lints and fixes files
+
 ```
 npm run lint
 ```
 
-### Customize configuration
+### customize configuration
+
 See [Configuration Reference](https://cli.vuejs.org/config/).
-# language-learning-rpg
