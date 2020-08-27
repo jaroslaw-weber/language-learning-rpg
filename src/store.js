@@ -112,7 +112,7 @@ const store = new Vuex.Store({
 
 store.loadCards = (state) => {
   const parse = require("csv-parse/lib/sync");
-  fetch("/spanish200.csv")
+  fetch("./spanish200.csv")
     .then((x) => x.text())
     .then((loadedCsv) => {
       //console.log(loadedCsv);
