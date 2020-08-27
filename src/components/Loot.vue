@@ -1,6 +1,6 @@
 <template>
   <div>
-    <img class="loot" :src="`${store.state.publicPath}/icons/chest.svg`" />
+    <img class="loot" :src="`${$store.state.publicPath}/icons/chest.svg`" />
   </div>
 </template>
 
