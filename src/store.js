@@ -5,6 +5,8 @@ import Vue from "vue";
 
 Vue.use(Vuex);
 
+import vueConfig from "../vue.config.js";
+
 /**
  * Shuffles array in place.
  * @param {Array} a items An array containing the items.
@@ -24,6 +26,7 @@ function shuffle(a) {
 const store = new Vuex.Store({
   state: {
     master: masterdata,
+    publicPath: vueConfig.publicPath,
     answers: [],
     player: {
       hp: 100,
@@ -110,12 +113,10 @@ const store = new Vuex.Store({
   },
 });
 
-import config from "../vue.config.js";
-
 store.loadCards = (state) => {
   const parse = require("csv-parse/lib/sync");
 
-  fetch(`${config.publicPath}spanish200.csv`)
+  fetch(`${state.publicPath}spanish200.csv`)
     .then((x) => x.text())
     .then((loadedCsv) => {
       //console.log(loadedCsv);

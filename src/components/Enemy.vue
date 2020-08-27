@@ -2,13 +2,11 @@
   <div>
     <p class="enemy-name">{{ currentEnemy.name }}</p>
     <p>hp: {{ currentEnemy.hp }}/{{currentEnemy.maxHp}}</p>
-    <img class="enemy-icon" :src="`${publicPath}icons/${currentEnemy.image}.svg`" />
+    <img class="enemy-icon" :src="`${$store.state.publicPath}icons/${currentEnemy.image}.svg`" />
   </div>
 </template>
 
 <script>
-import config from "../../vue.config.js";
-
 export default {
   name: "HelloWorld",
   props: {
@@ -20,9 +18,6 @@ export default {
   computed: {
     currentEnemy: function () {
       return this.$store.state.currentEnemy;
-    },
-    publicPath: function () {
-      return config.publicPath;
     },
   },
 };
