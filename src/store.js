@@ -7,6 +7,10 @@ Vue.use(Vuex);
 
 import vueConfig from "../vue.config.js";
 
+import clone from "clone";
+
+const parse = require("csv-parse/lib/sync");
+
 /**
  * Shuffles array in place.
  * @param {Array} a items An array containing the items.
@@ -22,49 +26,66 @@ function shuffle(a) {
   return a;
 }
 
+function addLog(state, message, color) {
+  state.gameLog.push({ content: message, isRead: false, color: color });
+}
+function readAllLog(state) {
+  state.gameLog.forEach((x) => (x.isRead = true));
+}
+const green = "green";
+const red = "red";
+const defaultState = {
+  animation: {
+    enemyHit: false,
+    playerHit: false,
+  },
+  master: masterdata,
+  publicPath: vueConfig.publicPath,
+  answers: [],
+  player: {
+    hp: masterdata.parameters[0].hp,
+    maxHp: masterdata.parameters[0].hp,
+    gold: 0,
+    exp: 0,
+    level: 1,
+    nextLevelExp: masterdata.expTable[0][0],
+    equipped: {
+      hand: masterdata.weapons[0],
+    },
+  },
+  gameLog: [],
+  cards: undefined,
+  currentEnemy: undefined,
+  currentLoot: undefined,
+  currentCard: undefined,
+  currentLocation: 1,
+  //who is attacking: me or enemy
+  isMyTurn: true,
+  isShowAnswer: false,
+  previousAnswer: {
+    question: undefined,
+    yourAnswer: undefined,
+    correctAnswer: undefined,
+    wasCorrect: undefined,
+  },
+  currentScene: "battle", //battle, shop, inventory
+  isDebug: false,
+};
+
 //store data in this object
 const store = new Vuex.Store({
-  state: {
-    master: masterdata,
-    publicPath: vueConfig.publicPath,
-    answers: [],
-    player: {
-      hp: 100,
-      gold: 0,
-      exp: 0,
-      level: 1,
-      nextLevelExp: undefined,
-      equipped: {
-        hand: undefined,
-      },
-    },
-    battleLog: [],
-    currentEnemy: undefined,
-    currentLoot: undefined,
-    currentCard: undefined,
-    currentLocation: 1,
-    //who is attacking: me or enemy
-    isMyTurn: true,
-    isShowAnswer: false,
-    previousAnswer: {
-      question: undefined,
-      yourAnswer: undefined,
-      correctAnswer: undefined,
-      wasCorrect: undefined,
-    },
-    currentScene: "battle", //battle, shop, inventory
-    isDebug: false,
-  },
+  state: clone(defaultState),
   mutations: {
     onAnswer(state, answer) {
-      console.log(answer);
+      readAllLog(state);
+      //console.log(answer);
       //save info about your answer. need this to display result
       let previousAnswer = state.previousAnswer;
       let currentCard = state.currentCard;
       let isCorrect = answer.display == currentCard.back;
-      console.log(
+      /*console.log(
         `iscorrect: ${isCorrect}, ${answer.display}, ${currentCard.back}`
-      );
+      );*/
 
       previousAnswer.question = currentCard.front;
       previousAnswer.correctAnswer = currentCard.back;
@@ -77,12 +98,15 @@ const store = new Vuex.Store({
         this.enemyAttack(state);
       }
     },
+    /*
     start(state) {
-      state.player.equipped.hand = state.master.weapons[0];
-      this.updatePlayerLevel(state);
+
+      state.player.equipped.this.updatePlayerLevel(state);
       this.loadCards(state);
-    },
+      this.load();
+    },*/
     collectLoot(state) {
+      readAllLog(state);
       this.collectLoot(state);
     },
     buyWeapon(state, weaponId) {
@@ -97,7 +121,9 @@ const store = new Vuex.Store({
     debugLevelUp(state) {
       let nextLevel = state.player.level + 1;
       let needExp = state.master.expTable.find((x) => x[1] == nextLevel)[0];
+
       state.player.exp = needExp;
+
       this.updatePlayerLevel(state);
     },
     goToLocation(state, locationId) {
@@ -109,14 +135,39 @@ const store = new Vuex.Store({
     nextTurn(state) {
       state.isShowAnswer = false;
       store.loadNewCard(state);
+      store.save(state);
+    },
+    reset() {
+      this.reset();
+    },
+    loadDeck(state, deckName) {
+      store.loadDeck(state, deckName);
+    },
+    loadCustomDeck(state, file) {
+      store.loadCustomDeck(state, file);
     },
   },
 });
 
-store.loadCards = (state) => {
-  const parse = require("csv-parse/lib/sync");
-
-  fetch(`${state.publicPath}spanish200.csv`)
+store.save = (state) => {
+  let stateAsString = JSON.stringify(state);
+  //console.log(stateAsString);
+  localStorage["progress"] = stateAsString;
+};
+store.load = () => {
+  let progressJson = localStorage["progress"];
+  if (progressJson == "undefined") return;
+  if (progressJson == undefined) return;
+  let parsed = JSON.parse(progressJson);
+  store.replaceState(parsed);
+};
+store.reset = () => {
+  localStorage["progress"] = undefined;
+  store.replaceState(clone(defaultState));
+  location.reload();
+};
+store.loadDeck = (state, deckName) => {
+  fetch(`${state.publicPath}${deckName}`)
     .then((x) => x.text())
     .then((loadedCsv) => {
       //console.log(loadedCsv);
@@ -125,20 +176,36 @@ store.loadCards = (state) => {
         columns: true,
         skip_empty_lines: true,
       });
-      state.master.cards = records;
+      state.cards = records;
 
-      console.log(state.master.cards);
+      console.log(state.cards);
       store.approachNewEnemy(state);
       store.loadNewCard(state);
     });
 };
+store.loadCustomDeck = (state, file) => {
+  file.text().then((csv) => {
+    console.log(csv);
+
+    const records = parse(csv, {
+      columns: true,
+      skip_empty_lines: true,
+    });
+    state.cards = records;
+
+    console.log(state.cards);
+    store.approachNewEnemy(state);
+    store.loadNewCard(state);
+  });
+};
 store.enemyAttack = (state) => {
   if (state.previousAnswer.wasCorrect) {
-    state.battleLog.push("you have dodged the attack!");
+    addLog(state, "you have dodged the attack!", green);
   } else {
     let atk = state.currentEnemy.atk;
     state.player.hp -= atk;
-    state.battleLog.push(`enemy hits you for ${atk} dmg`);
+    addLog(state, `enemy hits you for ${atk} dmg`, red);
+    state.animation.playerHit = true;
   }
 
   state.isMyTurn = !state.isMyTurn;
@@ -151,14 +218,24 @@ store.updatePlayerLevel = (state) => {
   state.master.expTable.forEach((row) => {
     let step = row[0];
     let exp = state.player.exp;
-    //console.log(`step: ${step}, row ${row}, exp:${exp}`);
+    console.log(`step: ${step}, row ${row}, exp:${exp}`);
     if (exp >= step) {
       //console.log("new level");
       newLevel = row[1];
     }
   });
+  let isLevelUp = state.player.level < newLevel;
+  console.log("updateplayerlevel");
+  if (isLevelUp) {
+    console.log("levelup");
+    let params = state.master.parameters.find((x) => x.level == newLevel);
+    console.log(params);
+    addLog(state, `level up! new level: ${newLevel}`);
+    state.player.maxHp = params.hp;
+    state.player.hp = params.hp;
+  }
   state.player.level = newLevel;
-  state.player.nextLevelExp = state.master.expTable[newLevel][0];
+  state.player.nextLevelExp = state.master.expTable[newLevel - 1][0];
 };
 store.getRandomEnemy = (state) => {
   let locationId = state.currentLocation;
@@ -173,7 +250,7 @@ store.getRandomEnemy = (state) => {
   return instance;
 };
 store.approachNewEnemy = (state) => {
-  state.battleLog.push("you have approached new enemy!");
+  addLog(state, "you have approached new enemy!");
 
   state.isShowAnswer = false;
 
@@ -182,21 +259,26 @@ store.approachNewEnemy = (state) => {
   store.loadNewCard(state);
 };
 store.getRandomCard = (state) => {
-  let cards = state.master.cards;
+  let cards = state.cards;
   return cards[(cards.length * Math.random()) << 0];
 };
 store.loadNewCard = (state) => {
   let card = store.getRandomCard(state);
   state.currentCard = card;
+  let a1 = card.back;
+  let a2 = store.getRandomCard(state).back;
+  let a3 = store.getRandomCard(state).back;
+  let a4 = store.getRandomCard(state).back;
   state.answers = [
-    { display: card.back, isCorrect: true },
-    { display: store.getRandomCard(state).back, isCorrect: false },
-    { display: store.getRandomCard(state).back, isCorrect: false },
-    { display: store.getRandomCard(state).back, isCorrect: false },
+    { display: a1, isCorrect: true },
+    { display: a2, isCorrect: a1 == a2 },
+    { display: a3, isCorrect: a1 == a3 },
+    { display: a4, isCorrect: a1 == a4 },
   ];
   shuffle(state.answers);
 };
 store.onEnemyKilled = (state) => {
+  state.animation.enemyHit = false;
   state.player.exp += state.currentEnemy.exp;
   store.updatePlayerLevel(state);
   state.currentEnemy = undefined;
@@ -206,23 +288,24 @@ store.onEnemyKilled = (state) => {
   loot.forEach((x) => {
     lootLog += x.asString + ", ";
   });
-  state.battleLog.push(lootLog);
+  addLog(state, lootLog);
 };
 
 store.attack = (state) => {
   if (state.previousAnswer.wasCorrect) {
     let currentWeapon = state.player.equipped.hand;
-    console.log(currentWeapon);
+    //console.log(currentWeapon);
     let atk = currentWeapon.atk;
-    state.battleLog.push(`you hit enemy for ${atk} damage`);
+    addLog(state, `you hit enemy for ${atk} damage`, green);
     state.currentEnemy.hp -= atk;
+    state.animation.enemyHit = true;
   } else {
-    state.battleLog.push("you have missed!");
+    addLog(state, "you have missed", red);
   }
   state.isShowAnswer = true;
   //store.loadNewCard(state);
   state.isMyTurn = !state.isMyTurn;
-  console.log(state.currentEnemy);
+  //console.log(state.currentEnemy);
   if (state.currentEnemy.hp <= 0) {
     store.onEnemyKilled(state);
   }
@@ -234,5 +317,11 @@ store.collectLoot = (state) => {
   }
 
   store.approachNewEnemy(state);
+
+  store.save(state);
 };
+
+//intialization
+store.load();
+
 export default store;

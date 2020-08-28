@@ -2,6 +2,8 @@
   <div class="debug-panel">
     <button class="button" @click="addGold(20)">add 20 gold</button>
     <button class="button" @click="levelUp()">level up</button>
+
+    <button class="button" @click="reset()">reset game</button>
   </div>
 </template>
 
@@ -16,6 +18,9 @@ export default {
     },
     levelUp() {
       this.$store.commit("debugLevelUp");
+    },
+    reset() {
+      this.$store.commit("reset");
     },
   },
 };

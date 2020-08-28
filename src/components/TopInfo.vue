@@ -2,7 +2,7 @@
   <div class="top-info">
     <p
       v-if="player"
-    >level: {{player.level}} | gold: {{player.gold}} | exp: {{player.exp}}/{{player.nextLevelExp}} | hp: {{player.hp}}</p>
+    >level: {{player.level}} | gold: {{player.gold}} | exp: {{player.exp}}/{{player.nextLevelExp}} | hp: {{player.hp}}/{{player.maxHp}}</p>
     <!--
     <div class="answer" v-if="$store.state.previousAnswer.question">
       <p
