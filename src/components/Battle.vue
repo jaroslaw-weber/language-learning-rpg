@@ -47,7 +47,7 @@ export default {
 <style scoped>
 .battle-grid {
   margin: auto;
-  width: 900px;
+  width: 800px;
 
   display: grid;
 

@@ -1,32 +1,27 @@
 <template>
-  <b-menu class="game-menu">
-    <b-menu-list>
-      <b-menu-item
+  <b-navbar>
+    <template slot="brand"></template>
+    <template slot="start"></template>
+
+    <template slot="end">
+      <b-navbar-item
         :active="$store.state.currentScene=='battle'"
-        icon="information-outline"
-        label="battle"
         @click="$store.state.currentScene='battle'"
-      ></b-menu-item>
-      <b-menu-item
+      >battle</b-navbar-item>
+      <b-navbar-item
         :active="$store.state.currentScene=='shop'"
-        icon="information-outline"
-        label="shop"
         @click="$store.state.currentScene='shop'"
-      ></b-menu-item>
-      <b-menu-item
+      >shop</b-navbar-item>
+      <b-navbar-item
         :active="$store.state.currentScene=='inventory'"
-        icon="information-outline"
-        label="inventory"
         @click="$store.state.currentScene='inventory'"
-      ></b-menu-item>
-      <b-menu-item
+      >inventory</b-navbar-item>
+      <b-navbar-item
         :active="$store.state.currentScene=='locations'"
-        icon="information-outline"
-        label="locations"
         @click="$store.state.currentScene='locations'"
-      ></b-menu-item>
-    </b-menu-list>
-  </b-menu>
+      >locations</b-navbar-item>
+    </template>
+  </b-navbar>
 </template>
 
 <script>

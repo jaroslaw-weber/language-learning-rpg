@@ -1,28 +1,25 @@
 <template>
   <div id="app" :class="animation" @animationend="$store.state.animation.playerHit=false">
-    <div v-if="$store.state.cards">
-      <TopInfo />
-      <div class="columns">
-        <div class="column is-one-quarter">
-          <Menu />
+    <div class="container">
+      <div v-if="$store.state.cards">
+        <Menu />
+        <TopInfo />
+        <Battle v-if="currentScene=='battle'" />
+        <Shop v-if="currentScene == 'shop'" />
+        <Inventory v-if="currentScene == 'inventory'" />
+        <Locations v-if="currentScene=='locations'" />
+
+        <hr />
+        <div class="debug-wrapper">
+          <DebugPanel v-if="$store.state.isDebug" />
         </div>
-        <div class="column">
-          <Battle v-if="currentScene=='battle'" />
-          <Shop v-if="currentScene == 'shop'" />
-          <Inventory v-if="currentScene == 'inventory'" />
-          <Locations v-if="currentScene=='locations'" />
+        <div class="debug-wrapper">
+          <b-checkbox v-model="$store.state.isDebug">show debug panel</b-checkbox>
         </div>
       </div>
-      <hr />
-      <div class="debug-wrapper">
-        <DebugPanel v-if="$store.state.isDebug" />
+      <div v-else>
+        <SelectDeck />
       </div>
-      <div class="debug-wrapper">
-        <b-checkbox v-model="$store.state.isDebug">show debug panel</b-checkbox>
-      </div>
-    </div>
-    <div v-else>
-      <SelectDeck />
     </div>
   </div>
 </template>
@@ -73,6 +70,9 @@ export default {
   text-align: center;
   color: #2c3e50;
   font-family: "Quicksand", sans-serif;
+}
+.wrapper {
+  width: 800px;
 }
 .navigation-button {
   margin: 1rem;

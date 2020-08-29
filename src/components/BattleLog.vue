@@ -48,7 +48,7 @@ export default {
 }
 .unread {
   font-weight: bold;
-  font-size: 1.5rem;
+  font-size: 1rem;
 }
 
 /* ----------------------------------------------
