@@ -47,6 +47,10 @@
         :active="$store.state.currentScene=='locations'"
         @click="$store.state.currentScene='locations'"
       >locations</b-navbar-item>
+      <b-navbar-item
+        :active="$store.state.currentScene=='debug'"
+        @click="$store.state.currentScene='debug'"
+      >other</b-navbar-item>
     </template>
   </b-navbar>
 </template>

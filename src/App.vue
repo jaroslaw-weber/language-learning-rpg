@@ -8,13 +8,7 @@
         <Inventory v-if="currentScene == 'inventory'" />
         <Locations v-if="currentScene=='locations'" />
 
-        <hr />
-        <div class="debug-wrapper">
-          <DebugPanel v-if="$store.state.isDebug" />
-        </div>
-        <div class="debug-wrapper">
-          <b-checkbox v-model="$store.state.isDebug">show debug panel</b-checkbox>
-        </div>
+        <DebugPanel v-if="$store.state.currentScene=='debug'" />
       </div>
       <div v-else>
         <SelectDeck />

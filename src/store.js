@@ -73,7 +73,6 @@ const defaultState = {
     wasCorrect: undefined,
   },
   currentScene: "battle", //battle, shop, inventory
-  isDebug: false,
 };
 
 //store data in this object
