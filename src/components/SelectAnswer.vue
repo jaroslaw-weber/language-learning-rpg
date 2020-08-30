@@ -1,5 +1,5 @@
 <template>
-  <div class="answers">
+  <div class="answers half-width">
     <!--<p>select answer to attack!</p>-->
     <div class="answers">
       <div v-for="(answer, i) in answers" :key="i">
@@ -43,9 +43,9 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .answer-button {
-  margin: 0.3rem;
-  width: 300px;
+  margin-bottom: 0.3rem;
   height: 4rem;
+  width: 300px;
 }
 .answers {
 }
@@ -59,7 +59,7 @@ export default {
 }
 .next-turn {
   margin-top: 1rem;
-  width: 150px;
+  width: 300px;
   height: 150px;
 }
 </style>

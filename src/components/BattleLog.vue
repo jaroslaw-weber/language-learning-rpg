@@ -1,7 +1,7 @@
 <template>
-  <div class="battle-log">
+  <div class="battle-log half-width">
     <div v-for="(item,i) in log" :key="i">
-      <p v-if="item.isRead">{{ item.content }}</p>
+      <p v-if="item.isRead" class="read">{{ item.content }}</p>
       <div v-else :class="`unread ${animationClass}`" @animationend="animationTrigger = false">
         <div v-if="item.color">
           <p :style="`color:${item.color}`">{{item.content}}</p>
@@ -47,8 +47,10 @@ export default {
   margin-top: 1rem;
 }
 .unread {
-  font-weight: bold;
   font-size: 1rem;
+}
+.read {
+  display: none;
 }
 
 /* ----------------------------------------------

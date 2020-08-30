@@ -38,6 +38,9 @@ const defaultState = {
   animation: {
     enemyHit: false,
     playerHit: false,
+    levelUp: false,
+    playerDodge: false,
+    enemyDodge: false,
   },
   master: masterdata,
   publicPath: vueConfig.publicPath,
@@ -51,6 +54,7 @@ const defaultState = {
     nextLevelExp: masterdata.expTable[0][0],
     equipped: {
       hand: masterdata.weapons[0],
+      chest: masterdata.armor[0],
     },
   },
   gameLog: [],
@@ -114,6 +118,12 @@ const store = new Vuex.Store({
       console.log(`bought weapon: weapon.name`);
       state.player.equipped.hand = weapon;
       state.player.gold -= weapon.price;
+    },
+
+    buyArmor(state, armorId) {
+      let armor = state.master.armor.find((x) => x.id == armorId);
+      state.player.equipped.chest = armor;
+      state.player.gold -= armor.price;
     },
     debugAddGold(state, amount) {
       state.player.gold += amount;
@@ -201,10 +211,14 @@ store.loadCustomDeck = (state, file) => {
 store.enemyAttack = (state) => {
   if (state.previousAnswer.wasCorrect) {
     addLog(state, "you have dodged the attack!", green);
+    state.animation.playerDodge = true;
   } else {
     let atk = state.currentEnemy.atk;
-    state.player.hp -= atk;
-    addLog(state, `enemy hits you for ${atk} dmg`, red);
+    let def = state.player.equipped.chest.def;
+    let dmg = atk - def;
+    if (dmg < 0) dmg = 0;
+    state.player.hp -= dmg;
+    addLog(state, `enemy hits you for ${dmg} dmg`, red);
     state.animation.playerHit = true;
   }
 
@@ -233,6 +247,7 @@ store.updatePlayerLevel = (state) => {
     addLog(state, `level up! new level: ${newLevel}`);
     state.player.maxHp = params.hp;
     state.player.hp = params.hp;
+    state.animation.levelUp = true;
   }
   state.player.level = newLevel;
   state.player.nextLevelExp = state.master.expTable[newLevel - 1][0];
@@ -277,17 +292,25 @@ store.loadNewCard = (state) => {
   ];
   shuffle(state.answers);
 };
+
+function lootToString(loot) {
+  let result = "";
+  loot.forEach((x) => {
+    if (x.type == "gold") {
+      result += `${x.amount} gold,`;
+    }
+  });
+  return result;
+}
 store.onEnemyKilled = (state) => {
   state.animation.enemyHit = false;
   state.player.exp += state.currentEnemy.exp;
   store.updatePlayerLevel(state);
+  let loot = state.currentEnemy.loot;
   state.currentEnemy = undefined;
-  let loot = [{ name: "gold", amount: 10, asString: "10 gold" }];
   state.currentLoot = loot;
-  let lootLog = `you have found: `;
-  loot.forEach((x) => {
-    lootLog += x.asString + ", ";
-  });
+
+  let lootLog = lootToString(loot);
   addLog(state, lootLog);
 };
 
@@ -301,6 +324,7 @@ store.attack = (state) => {
     state.animation.enemyHit = true;
   } else {
     addLog(state, "you have missed", red);
+    state.animation.enemyDodge = true;
   }
   state.isShowAnswer = true;
   //store.loadNewCard(state);
@@ -312,7 +336,12 @@ store.attack = (state) => {
 };
 store.collectLoot = (state) => {
   if (state.currentLoot) {
-    state.player.gold += 10;
+    state.currentLocation;
+    state.currentLoot.forEach((x) => {
+      if (x.type == "gold") {
+        state.player.gold += x.amount;
+      }
+    });
     state.currentLoot = undefined;
   }
 

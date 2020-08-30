@@ -5,7 +5,7 @@
       <div class="location" v-for="(location, i) in locations" :key="i">
         <button
           @click="onSelect(location)"
-          class="button location-button"
+          class="button location-button half-width"
           :disabled="$store.state.player.level<location.requiredLevel"
         >{{ location.name }}</button>
         <p>required level: {{location.requiredLevel}}</p>
@@ -35,13 +35,11 @@ export default {
 <style scoped>
 .location-button {
   margin: 0.3rem;
-  width: 300px;
   height: 4rem;
 }
 .location {
   margin-bottom: 1rem;
 }
 .locations {
-  width: 800px;
 }
 </style>

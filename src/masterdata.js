@@ -42,9 +42,7 @@ export default {
       name: "bad gnome",
       image: "bad-gnome",
       exp: 5,
-      drop: {
-        gold: 5,
-      },
+      loot: [{ type: "gold", amount: 5 }],
     },
     {
       id: 2,
@@ -53,9 +51,7 @@ export default {
       name: "slime",
       image: "transparent-slime",
       exp: 5,
-      drop: {
-        gold: 8,
-      },
+      loot: [{ type: "gold", amount: 8 }],
     },
     {
       id: 3,
@@ -64,9 +60,7 @@ export default {
       name: "tree",
       image: "tree-face",
       exp: 5,
-      drop: {
-        gold: 10,
-      },
+      loot: [{ type: "gold", amount: 12 }],
     },
 
     {
@@ -76,9 +70,7 @@ export default {
       name: "ghost",
       image: "ghost",
       exp: 5,
-      drop: {
-        gold: 15,
-      },
+      loot: [{ type: "gold", amount: 15 }],
     },
     {
       id: 5,
@@ -87,9 +79,7 @@ export default {
       name: "spectre",
       image: "spectre",
       exp: 5,
-      drop: {
-        gold: 18,
-      },
+      loot: [{ type: "gold", amount: 18 }],
     },
     {
       id: 6,
@@ -98,9 +88,7 @@ export default {
       name: "mummy",
       image: "mummy-head",
       exp: 5,
-      drop: {
-        gold: 18,
-      },
+      loot: [{ type: "gold", amount: 22 }],
     },
     {
       id: 7,
@@ -109,9 +97,7 @@ export default {
       name: "gooey demon",
       image: "gooey-daemon",
       exp: 5,
-      drop: {
-        gold: 18,
-      },
+      loot: [{ type: "gold", amount: 22 }],
     },
     {
       id: 8,
@@ -120,9 +106,7 @@ export default {
       name: "evil fork",
       image: "evil-fork",
       exp: 5,
-      drop: {
-        gold: 18,
-      },
+      loot: [{ type: "gold", amount: 25 }],
     },
     {
       id: 9,
@@ -131,9 +115,7 @@ export default {
       name: "imp",
       image: "imp-laugh",
       exp: 5,
-      drop: {
-        gold: 18,
-      },
+      loot: [{ type: "gold", amount: 30 }],
     },
     {
       id: 999,
@@ -142,9 +124,7 @@ export default {
       name: "evil book",
       image: "evil-book",
       exp: 5,
-      drop: {
-        gold: 18,
-      },
+      loot: [{ type: "gold", amount: 30 }],
     },
   ],
   weapons: [
@@ -155,6 +135,15 @@ export default {
     { id: 5, name: "sword with teeth", atk: 25, price: 300 },
     { id: 6, name: "huge axe", atk: 33, price: 500 },
     { id: 7, name: "katana", atk: 40, price: 600 },
+  ],
+  armor: [
+    { id: 1, name: "shirt", def: 0, price: 0 },
+    { id: 2, name: "leather shirt", def: 2, price: 40 },
+    { id: 3, name: "thick leather shirt", def: 3, price: 90 },
+    { id: 4, name: "metal armor", def: 6, price: 200 },
+    { id: 5, name: "thick metal armor", def: 8, price: 300 },
+    { id: 6, name: "magic armor", def: 12, price: 500 },
+    { id: 7, name: "gold armor", def: 20, price: 600 },
   ],
   miscItems: [{ name: "small-potion", itemType: "heal", heal: 10 }],
 };
