@@ -2,6 +2,10 @@
 
 learn a language by playing rpg game!
 
+to play the game just go here:
+
+https://jaroslaw-weber.github.io/language-learning-rpg/
+
 # how to play
 
 - select correct answer to attack or dodge attack
