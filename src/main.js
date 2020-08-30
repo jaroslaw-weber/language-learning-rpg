@@ -10,7 +10,6 @@ Vue.config.productionTip = false;
 
 import store from "./store.js";
 
-
 new Vue({
   render: (h) => h(App),
   store: store,

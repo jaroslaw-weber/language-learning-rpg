@@ -1,6 +1,6 @@
 <template>
   <div>
-    <p class="question">{{question}}</p>
+    <p class="question half-width">{{question}}</p>
   </div>
 </template>
 
@@ -24,6 +24,7 @@ export default {
 .question {
   font-size: 1.5rem;
   font-weight: bold;
-  margin: 1.2rem;
+  margin-bottom: 1.2rem;
+  margin-top: 1.2rem;
 }
 </style>

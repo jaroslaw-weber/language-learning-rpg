@@ -3,7 +3,12 @@
     <p class="inventory-title">equipped items</p>
     <p class="inventory-item">
       <strong>hand:</strong>
+
       {{$store.state.player.equipped.hand.name}}
+    </p>
+    <p class="inventory-item">
+      <strong>chest:</strong>
+      {{$store.state.player.equipped.chest.name}}
     </p>
   </div>
 </template>
@@ -20,7 +25,6 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .inventory {
-  width: 700px;
 }
 .inventory-title {
   font-size: 2rem;
