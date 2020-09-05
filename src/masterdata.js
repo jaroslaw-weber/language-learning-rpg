@@ -1,18 +1,92 @@
+//todo load masterdata from csv
+
 //define parameters here
 export default {
-  //exp table, left is exp needed for the level on the right
-  expTable: [
-    [10, 2],
-    [20, 3],
-    [40, 4],
-    [40, 5],
-    [65, 6],
-    [100, 7],
-    [130, 8],
-    [160, 9],
-    [210, 10],
-    [280, 11],
-    [400, 12],
+  exp: [
+    {
+      level: 1,
+      exp: 0,
+    },
+    {
+      level: 2,
+      exp: 10,
+    },
+    {
+      level: 3,
+      exp: 20,
+    },
+    {
+      level: 4,
+      exp: 40,
+    },
+    {
+      level: 5,
+      exp: 70,
+    },
+    {
+      level: 6,
+      exp: 100,
+    },
+    {
+      level: 7,
+      exp: 130,
+    },
+    {
+      level: 8,
+      exp: 160,
+    },
+    {
+      level: 9,
+      exp: 200,
+    },
+    {
+      level: 10,
+      exp: 250,
+    },
+    {
+      level: 11,
+      exp: 300,
+    },
+    {
+      level: 12,
+      exp: 360,
+    },
+    {
+      level: 13,
+      exp: 420,
+    },
+    {
+      level: 14,
+      exp: 480,
+    },
+    {
+      level: 15,
+      exp: 550,
+    },
+    {
+      level: 16,
+      exp: 650,
+    },
+    {
+      level: 17,
+      exp: 760,
+    },
+    {
+      level: 18,
+      exp: 890,
+    },
+    {
+      level: 19,
+      exp: 1000,
+    },
+    {
+      level: 20,
+      exp: 1110,
+    },
+    {
+      level: 21,
+      exp: 1230,
+    },
   ],
   parameters: [
     { level: 1, hp: 20 },
@@ -27,11 +101,28 @@ export default {
     { level: 10, hp: 115 },
     { level: 11, hp: 130 },
     { level: 12, hp: 140 },
+    { level: 13, hp: 160 },
+    { level: 14, hp: 180 },
+    { level: 15, hp: 200 },
+    { level: 16, hp: 210 },
+    { level: 17, hp: 230 },
+    { level: 18, hp: 250 },
+    { level: 19, hp: 270 },
+    { level: 20, hp: 290 },
+    { level: 21, hp: 310 },
   ],
   locations: [
     { id: 1, name: "forest", requiredLevel: 0, enemies: [1, 2, 3] },
+    { id: 901, name: "forest: boss stage", requiredLevel: 5, enemies: [901] },
     { id: 2, name: "cementary", requiredLevel: 5, enemies: [4, 5, 6] },
+    {
+      id: 902,
+      name: "cementary: boss stage",
+      requiredLevel: 10,
+      enemies: [902],
+    },
     { id: 3, name: "hell", requiredLevel: 10, enemies: [7, 8, 9] },
+    { id: 903, name: "hell: boss stage", requiredLevel: 15, enemies: [903] },
   ],
   //each enemy definition
   enemies: [
@@ -50,7 +141,7 @@ export default {
       hp: 9,
       name: "slime",
       image: "transparent-slime",
-      exp: 5,
+      exp: 6,
       loot: [{ type: "gold", amount: 8 }],
     },
     {
@@ -59,7 +150,7 @@ export default {
       hp: 12,
       name: "tree",
       image: "tree-face",
-      exp: 5,
+      exp: 7,
       loot: [{ type: "gold", amount: 12 }],
     },
 
@@ -69,7 +160,7 @@ export default {
       hp: 20,
       name: "ghost",
       image: "ghost",
-      exp: 5,
+      exp: 8,
       loot: [{ type: "gold", amount: 15 }],
     },
     {
@@ -78,7 +169,7 @@ export default {
       hp: 25,
       name: "spectre",
       image: "spectre",
-      exp: 5,
+      exp: 9,
       loot: [{ type: "gold", amount: 18 }],
     },
     {
@@ -87,7 +178,7 @@ export default {
       hp: 25,
       name: "mummy",
       image: "mummy-head",
-      exp: 5,
+      exp: 10,
       loot: [{ type: "gold", amount: 22 }],
     },
     {
@@ -96,7 +187,7 @@ export default {
       hp: 25,
       name: "gooey demon",
       image: "gooey-daemon",
-      exp: 5,
+      exp: 11,
       loot: [{ type: "gold", amount: 22 }],
     },
     {
@@ -105,7 +196,7 @@ export default {
       hp: 25,
       name: "evil fork",
       image: "evil-fork",
-      exp: 5,
+      exp: 12,
       loot: [{ type: "gold", amount: 25 }],
     },
     {
@@ -114,17 +205,35 @@ export default {
       hp: 25,
       name: "imp",
       image: "imp-laugh",
-      exp: 5,
+      exp: 13,
       loot: [{ type: "gold", amount: 30 }],
     },
     {
-      id: 999,
-      atk: 12,
-      hp: 25,
-      name: "evil book",
-      image: "evil-book",
-      exp: 5,
-      loot: [{ type: "gold", amount: 30 }],
+      id: 901,
+      atk: 15,
+      hp: 50,
+      name: "witch",
+      image: "witch-face",
+      exp: 20,
+      loot: [{ type: "gold", amount: 40 }],
+    },
+    {
+      id: 902,
+      atk: 20,
+      hp: 100,
+      name: "skeletor king",
+      image: "daemon-skull",
+      exp: 30,
+      loot: [{ type: "gold", amount: 80 }],
+    },
+    {
+      id: 903,
+      atk: 30,
+      hp: 150,
+      name: "demon king",
+      image: "diablo-skull",
+      exp: 50,
+      loot: [{ type: "gold", amount: 110 }],
     },
   ],
   weapons: [
@@ -145,5 +254,18 @@ export default {
     { id: 6, name: "magic armor", def: 12, price: 500 },
     { id: 7, name: "gold armor", def: 20, price: 600 },
   ],
+  quest: [
+    {
+      id: 1,
+      name: "small bad boys",
+      desc:
+        "So sleepy... Those little bastards stole my pillow! I just want my revenge! Help me and I will make you a warrior.",
+      conditions: [1],
+      rewards: [1],
+      requiredLevel: 1,
+    },
+  ],
+  condition: [{ id: 1, type: "kill", amount: 3, enemyId: 1 }],
+  reward: [{ id: 1, type: "weapon", masterId: 2, amount: 1 }],
   miscItems: [{ name: "small-potion", itemType: "heal", heal: 10 }],
 };

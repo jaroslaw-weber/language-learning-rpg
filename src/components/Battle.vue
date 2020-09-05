@@ -75,13 +75,30 @@ export default {
 
   grid-gap: 2 px;
 
-  grid-template-columns: 50% 50%;
   grid-template-rows: auto;
 }
+@media screen and (min-width: 800px) {
+  .battle-grid {
+    grid-template-columns: 50% 50%;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .battle-grid {
+    grid-template-columns: 100%;
+  }
+}
+
 .collect-loot {
   margin-top: 1rem;
   width: 300px;
   height: 100px;
+}
+
+@media screen and (max-width: 800px) {
+  .collect-loot {
+    height: 2rem;
+  }
 }
 
 .shake-horizontal {

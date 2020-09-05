@@ -22,8 +22,7 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .question {
-  font-size: 1.5rem;
-  font-weight: bold;
+  font-size: 1.8rem;
   margin-bottom: 1.2rem;
   margin-top: 1.2rem;
 }

@@ -7,6 +7,8 @@
         <Shop v-if="currentScene == 'shop'" />
         <Inventory v-if="currentScene == 'inventory'" />
         <Locations v-if="currentScene=='locations'" />
+        <Journal v-if="currentScene=='journal'" />
+        <Town v-if="currentScene=='town'" />
 
         <DebugPanel v-if="$store.state.currentScene=='debug'" />
       </div>
@@ -25,6 +27,8 @@ import DebugPanel from "./components/DebugPanel";
 import Locations from "./components/Locations";
 import Menu from "./components/Menu";
 import SelectDeck from "./components/SelectDeck";
+import Journal from "./components/Journal";
+import Town from "./components/Town";
 
 export default {
   name: "App",
@@ -36,6 +40,8 @@ export default {
     Locations,
     Menu,
     SelectDeck,
+    Journal,
+    Town,
   },
   methods: {},
   computed: {
@@ -68,10 +74,21 @@ export default {
   text-align: right;
 }
 
-.full-width {
-  width: 650px;
+@media screen and (min-width: 800px) {
+  .full-width {
+    width: 650px;
+  }
+  .half-width {
+    width: 300px;
+  }
 }
-.half-width {
-  width: 300px;
+
+@media screen and (max-width: 800px) {
+  .full-width {
+    width: 300px;
+  }
+  .half-width {
+    width: 300px;
+  }
 }
 </style>
