@@ -8,6 +8,7 @@
       :src="`${$store.state.publicPath}icons/${currentEnemy.image}.svg`"
     />
     <b-progress
+      class="enemy-hp"
       type="is-success"
       :max="currentEnemy.maxHp"
       :value=" currentEnemy.hp"
@@ -48,6 +49,17 @@ export default {
 .enemy-icon {
   width: 300px;
   height: 300px;
+}
+
+@media screen and (max-width: 800px) {
+  .enemy-icon {
+    width: 200px;
+    height: 200px;
+  }
+  .enemy-hp {
+    width: 200px;
+    margin: auto;
+  }
 }
 .enemy-name {
   margin: 0.5rem;

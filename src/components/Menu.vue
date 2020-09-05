@@ -1,6 +1,11 @@
 <template>
   <b-navbar>
-    <template slot="brand"></template>
+    <template slot="brand">
+      <!--only mobile-->
+      <b-navbar-item class="is-hidden-tablet">level: {{player.level}}</b-navbar-item>
+      <b-navbar-item class="is-hidden-tablet">gold: {{player.gold}}</b-navbar-item>
+      <b-navbar-item class="is-hidden-tablet">hp: {{player.hp}}/{{player.maxHp}}</b-navbar-item>
+    </template>
     <template slot="start">
       <b-navbar-item>
         <p
@@ -31,26 +36,13 @@
     </template>
 
     <template slot="end">
-      <b-navbar-item
-        :active="$store.state.currentScene=='battle'"
-        @click="$store.state.currentScene='battle'"
-      >battle</b-navbar-item>
-      <b-navbar-item
-        :active="$store.state.currentScene=='shop'"
-        @click="$store.state.currentScene='shop'"
-      >shop</b-navbar-item>
-      <b-navbar-item
-        :active="$store.state.currentScene=='inventory'"
-        @click="$store.state.currentScene='inventory'"
-      >inventory</b-navbar-item>
-      <b-navbar-item
-        :active="$store.state.currentScene=='locations'"
-        @click="$store.state.currentScene='locations'"
-      >locations</b-navbar-item>
-      <b-navbar-item
-        :active="$store.state.currentScene=='debug'"
-        @click="$store.state.currentScene='debug'"
-      >other</b-navbar-item>
+      <b-navbar-item :active="currentScene=='battle'" @click="changeScene('battle')">battle</b-navbar-item>
+      <b-navbar-item :active="currentScene=='shop'" @click="changeScene('shop')">shop</b-navbar-item>
+      <b-navbar-item :active="currentScene=='inventory'" @click="changeScene('inventory')">inventory</b-navbar-item>
+      <b-navbar-item :active="currentScene=='locations'" @click="changeScene('locations')">locations</b-navbar-item>
+      <b-navbar-item :active="currentScene=='journal'" @click="changeScene('journal')">journal</b-navbar-item>
+      <b-navbar-item :active="currentScene=='town'" @click="changeScene('town')">town</b-navbar-item>
+      <b-navbar-item :active="currentScene=='debug'" @click="changeScene('debug')">other</b-navbar-item>
     </template>
   </b-navbar>
 </template>
@@ -68,6 +60,14 @@ export default {
     levelClass: function () {
       if (this.$store.state.animation.levelUp) return "pulsate-bck level"; //on level up animation
       return "level";
+    },
+    currentScene: function () {
+      return this.$store.state.currentScene;
+    },
+  },
+  methods: {
+    changeScene: function (sceneName) {
+      this.$store.state.currentScene = sceneName;
     },
   },
 };
