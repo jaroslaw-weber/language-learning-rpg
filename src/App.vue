@@ -3,15 +3,17 @@
     <div class="container">
       <div v-if="$store.state.cards">
         <Menu />
-        <Battle v-if="currentScene=='battle'" />
+        <Battle v-if="currentScene == 'battle'" />
         <Shop v-if="currentScene == 'shop'" />
         <Inventory v-if="currentScene == 'inventory'" />
-        <Locations v-if="currentScene=='locations'" />
-        <Journal v-if="currentScene=='journal'" />
-        <Town v-if="currentScene=='town'" />
+        <Locations v-if="currentScene == 'locations'" />
+        <Journal v-if="currentScene == 'journal'" />
+        <Town v-if="currentScene == 'town'" />
+        <Achievements v-if="currentScene == 'achievements'" />
 
-        <DebugPanel v-if="$store.state.currentScene=='debug'" />
+        <DebugPanel v-if="$store.state.currentScene == 'debug'" />
       </div>
+
       <div v-else>
         <SelectDeck />
       </div>
@@ -30,9 +32,11 @@ import SelectDeck from "./components/SelectDeck";
 import Journal from "./components/Journal";
 import Town from "./components/Town";
 
+import Achievements from "./components/Achievements";
 export default {
   name: "App",
   components: {
+    Achievements,
     Battle,
     Shop,
     Inventory,
@@ -45,11 +49,33 @@ export default {
   },
   methods: {},
   computed: {
-    currentScene: function () {
+    currentScene: function() {
       return this.$store.state.currentScene;
     },
+    notifications: function() {
+      return this.$store.state.notifications;
+    },
+    newLocation: function() {
+      return this.notifications.newLocation;
+    },
   },
-  mounted: function () {},
+  mounted: function() {},
+  watch: {
+    newLocation: function() {
+      if (!this.newLocation) return; // show notification if there is new location
+
+      console.log("new location snackbar!");
+      this.$buefy.snackbar.open({
+        message: "new location unlocked!",
+        position: "is-bottom",
+        actionText: "ok",
+        indefinite: true,
+        onAction: () => {
+          this.$store.state.notifications.newLocation = false;
+        },
+      });
+    },
+  },
 };
 </script>
 
@@ -72,6 +98,10 @@ export default {
 .debug-wrapper {
   margin: 1rem;
   text-align: right;
+}
+
+.progress {
+  border-radius: 5px !important;
 }
 
 @media screen and (min-width: 800px) {

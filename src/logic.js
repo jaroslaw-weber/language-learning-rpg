@@ -98,7 +98,7 @@ function updatePlayerLevel(state) {
   state.master.exp.forEach((row) => {
     let step = row.exp;
     let exp = state.player.exp;
-    console.log(`step: ${step}, row ${row}, exp:${exp}`);
+    //console.log(`step: ${step}, row ${row}, exp:${exp}`);
     if (exp >= step) {
       //console.log("new level");
       newLevel = row.level;
@@ -107,13 +107,17 @@ function updatePlayerLevel(state) {
   let isLevelUp = state.player.level < newLevel;
   console.log("updateplayerlevel");
   if (isLevelUp) {
-    console.log("levelup");
+    //console.log("levelup");
     let params = state.master.parameters.find((x) => x.level == newLevel);
-    console.log(params);
+    //console.log(params);
     addLog(state, `level up! new level: ${newLevel}`);
     state.player.maxHp = params.hp;
     state.player.hp = params.hp;
     state.animation.levelUp = true;
+
+    if (isUnlockedNewLocation(state)) {
+      state.notifications.newLocation = true;
+    }
   }
   state.player.level = newLevel;
 
@@ -199,6 +203,7 @@ function lootToString(loot) {
   return result;
 }
 function onEnemyKilled(state) {
+  let enemyId = state.currentEnemy.id;
   state.animation.enemyHit = false;
   //if max level then dont add exp
   if (!isMaxLevel(state)) {
@@ -211,6 +216,18 @@ function onEnemyKilled(state) {
 
   let lootLog = lootToString(loot);
   addLog(state, lootLog);
+  increaseEnemyKilledCounter(state, enemyId);
+}
+
+function increaseEnemyKilledCounter(state, enemyId) {
+  //game stats
+  let table = state.player.gameStats.enemiesKilled;
+  let current = table.find((x) => x.id == enemyId);
+  if (current == undefined) {
+    table.push({ id: enemyId, count: 1 });
+  } else {
+    current.count += 1;
+  }
 }
 
 function attack(state) {
@@ -240,6 +257,7 @@ export function collectLoot(state) {
     state.currentLoot.forEach((x) => {
       if (x.type == "gold") {
         state.player.gold += x.amount;
+        onGoldUpdated(state);
       }
     });
     state.currentLoot = undefined;
@@ -250,6 +268,14 @@ export function collectLoot(state) {
   save(state);
 }
 
+//update for achievements
+function onGoldUpdated(state) {
+  let goldNow = state.player.gold;
+  if (goldNow > state.player.gameStats.maxGold) {
+    state.player.gameStats.maxGold = goldNow;
+  }
+}
+
 function addLog(state, message, color) {
   state.gameLog.push({ content: message, isRead: false, color: color });
 }
@@ -257,8 +283,17 @@ function readAllLog(state) {
   state.gameLog.forEach((x) => (x.isRead = true));
 }
 
+function isUnlockedNewLocation(state) {
+  return (
+    state.master.locations.find((x) => x.requiredLevel == state.player.level) !=
+    undefined
+  );
+}
+
 export function onAnswer(state, answer) {
   readAllLog(state);
+
+  state.reviewsCount += 1;
   //console.log(answer);
   //save info about your answer. need this to display result
   let previousAnswer = state.previousAnswer;
@@ -290,6 +325,7 @@ export function buyArmor(state, armorId) {
 }
 export function debugAddGold(state, amount) {
   state.player.gold += amount;
+  onGoldUpdated(state);
 }
 export function debugLevelUp(state) {
   let nextLevel = state.player.level + 1;

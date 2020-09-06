@@ -13,7 +13,7 @@
       >
     </template>
     <template slot="start">
-      <b-navbar-item>
+      <b-navbar-item class="is-hidden-touch">
         <p
           :class="levelClass"
           @animationend="$store.state.animation.levelUp = false"
@@ -31,11 +31,11 @@
           >exp: {{ player.exp }}/{{ player.nextLevelExp }}</b-progress
         >
       </b-navbar-item>
-      <b-navbar-item>
+      <b-navbar-item class="is-hidden-touch">
         gold:
         {{ player.gold }}
       </b-navbar-item>
-      <b-navbar-item>
+      <b-navbar-item class="is-hidden-touch">
         <b-progress
           type="is-success"
           :max="player.maxHp"
@@ -52,36 +52,48 @@
         @click="changeScene('battle')"
         >battle</b-navbar-item
       >
+
       <b-navbar-item
         :active="currentScene == 'shop'"
         @click="changeScene('shop')"
         >shop</b-navbar-item
       >
       <b-navbar-item
-        :active="currentScene == 'inventory'"
-        @click="changeScene('inventory')"
-        >inventory</b-navbar-item
-      >
-      <b-navbar-item
         :active="currentScene == 'locations'"
         @click="changeScene('locations')"
         >locations</b-navbar-item
       >
-      <b-navbar-item
-        :active="currentScene == 'journal'"
-        @click="changeScene('journal')"
-        >journal</b-navbar-item
-      >
-      <b-navbar-item
-        :active="currentScene == 'town'"
-        @click="changeScene('town')"
-        >town</b-navbar-item
-      >
-      <b-navbar-item
-        :active="currentScene == 'debug'"
-        @click="changeScene('debug')"
-        >other</b-navbar-item
-      >
+
+      <b-navbar-dropdown label="More...">
+        <b-navbar-item
+          :active="currentScene == 'inventory'"
+          @click="changeScene('inventory')"
+          >inventory</b-navbar-item
+        >
+        <b-navbar-item
+          :active="currentScene == 'achievements'"
+          @click="changeScene('achievements')"
+          >achievements</b-navbar-item
+        >
+        <!--
+        <b-navbar-item
+          :active="currentScene == 'journal'"
+          @click="changeScene('journal')"
+          >journal</b-navbar-item
+        >
+        <b-navbar-item
+          :active="currentScene == 'town'"
+          @click="changeScene('town')"
+          >town</b-navbar-item
+        >-->
+        <b-navbar-item
+          :active="currentScene == 'debug'"
+          @click="changeScene('debug')"
+          >settings</b-navbar-item
+        >
+      </b-navbar-dropdown>
+      <b-navbar-item>practiced: {{ $store.state.reviewsCount }}</b-navbar-item>
+      <b-navbar-item class="version">v{{ $store.state.version }}</b-navbar-item>
     </template>
   </b-navbar>
 </template>
@@ -115,7 +127,9 @@ export default {
 .game-menu {
   text-align: left;
 }
-
+.version {
+  color: grey;
+}
 .progress-bar {
 }
 .level {

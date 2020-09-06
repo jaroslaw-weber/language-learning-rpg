@@ -1,6 +1,9 @@
 import vueConfig from "../vue.config.js";
 import masterdata from "./masterdata.js";
+import packageConfig from "../package.json";
+
 const defaultState = {
+  version: packageConfig.version,
   animation: {
     enemyHit: false,
     playerHit: false,
@@ -22,6 +25,16 @@ const defaultState = {
       hand: masterdata.weapons[0],
       chest: masterdata.armor[0],
     },
+    gameStats: {
+      //enemies killed counter, for achievements
+      enemiesKilled: [{ id: 1, count: 0 }],
+      //how much gold had at once
+      maxGold: 0,
+    },
+  },
+  reviewsCount: 0,
+  notifications: {
+    newLocation: false,
   },
   gameLog: [],
   cards: undefined,

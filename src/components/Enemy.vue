@@ -11,9 +11,11 @@
       class="enemy-hp"
       type="is-success"
       :max="currentEnemy.maxHp"
-      :value=" currentEnemy.hp"
+      :value="currentEnemy.hp"
       :show-value="true"
-    >hp: {{currentEnemy.hp}}/{{currentEnemy.maxHp}}</b-progress>
+      size="is-large"
+      >hp: {{ currentEnemy.hp }}/{{ currentEnemy.maxHp }}</b-progress
+    >
   </div>
 </template>
 
@@ -24,18 +26,18 @@ export default {
     msg: String,
   },
   methods: {
-    shake: function () {},
-    resetAnimations: function () {
+    shake: function() {},
+    resetAnimations: function() {
       let anim = this.$store.state.animation;
       anim.enemyHit = false;
       anim.enemyDodge = false;
     },
   },
   computed: {
-    currentEnemy: function () {
+    currentEnemy: function() {
       return this.$store.state.currentEnemy;
     },
-    animation: function () {
+    animation: function() {
       if (this.$store.state.animation.enemyHit) return "shake-horizontal";
       if (this.$store.state.animation.enemyDodge) return "slide-out-left";
       return "";
@@ -44,11 +46,14 @@ export default {
 };
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .enemy-icon {
   width: 300px;
   height: 300px;
+  border-radius: 5px;
+}
+.enemy-hp {
+  margin-top: 1rem;
 }
 
 @media screen and (max-width: 800px) {
@@ -63,7 +68,7 @@ export default {
 }
 .enemy-name {
   margin: 0.5rem;
-  font-size: 1.8rem;
+  font-size: 1.5rem;
 }
 .enemy {
 }
