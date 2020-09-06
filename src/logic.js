@@ -91,6 +91,9 @@ function enemyAttack(state) {
   //loadNewCard(state);
 }
 function updatePlayerLevel(state) {
+  if (isMaxLevel(state)) {
+    return;
+  }
   let newLevel = 1;
   state.master.exp.forEach((row) => {
     let step = row.exp;
@@ -113,9 +116,28 @@ function updatePlayerLevel(state) {
     state.animation.levelUp = true;
   }
   state.player.level = newLevel;
-  state.player.nextLevelExp = state.master.exp.find(
-    (x) => x.level == newLevel + 1
-  ).exp;
+
+  let nextLevelExp = getNextLevelExp(state);
+  if (nextLevelExp != undefined) {
+    state.player.nextLevelExp = nextLevelExp;
+  }
+}
+
+function getNextLevelExp(state) {
+  let nextLevelInfo = state.master.exp.find(
+    (x) => x.level == state.player.level + 1
+  );
+  if (nextLevelInfo == undefined) return undefined;
+  return nextLevelInfo.exp;
+}
+
+function isMaxLevel(state) {
+  let nextLevelInfo = state.master.exp.find(
+    (x) => x.level == state.player.level + 1
+  );
+
+  let isMaxLevel = nextLevelInfo == undefined;
+  return isMaxLevel;
 }
 function getRandomEnemy(state) {
   let locationId = state.currentLocation;
@@ -178,7 +200,10 @@ function lootToString(loot) {
 }
 function onEnemyKilled(state) {
   state.animation.enemyHit = false;
-  state.player.exp += state.currentEnemy.exp;
+  //if max level then dont add exp
+  if (!isMaxLevel(state)) {
+    state.player.exp += state.currentEnemy.exp;
+  }
   updatePlayerLevel(state);
   let loot = state.currentEnemy.loot;
   state.currentEnemy = undefined;

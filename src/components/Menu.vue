@@ -2,47 +2,86 @@
   <b-navbar>
     <template slot="brand">
       <!--only mobile-->
-      <b-navbar-item class="is-hidden-tablet">level: {{player.level}}</b-navbar-item>
-      <b-navbar-item class="is-hidden-tablet">gold: {{player.gold}}</b-navbar-item>
-      <b-navbar-item class="is-hidden-tablet">hp: {{player.hp}}/{{player.maxHp}}</b-navbar-item>
+      <b-navbar-item class="is-hidden-desktop"
+        >level: {{ player.level }}</b-navbar-item
+      >
+      <b-navbar-item class="is-hidden-desktop"
+        >gold: {{ player.gold }}</b-navbar-item
+      >
+      <b-navbar-item class="is-hidden-desktop"
+        >hp: {{ player.hp }}/{{ player.maxHp }}</b-navbar-item
+      >
     </template>
     <template slot="start">
       <b-navbar-item>
         <p
           :class="levelClass"
-          @animationend="$store.state.animation.levelUp=false"
-        >level: {{player.level}}</p>
+          @animationend="$store.state.animation.levelUp = false"
+        >
+          level: {{ player.level }}
+        </p>
       </b-navbar-item>
       <b-navbar-item>
         <b-progress
+          class="progress-bar"
           type="is-info"
           :max="player.nextLevelExp"
           :value="player.exp"
           :show-value="true"
-        >exp: {{player.exp}}/{{player.nextLevelExp}}</b-progress>
+          >exp: {{ player.exp }}/{{ player.nextLevelExp }}</b-progress
+        >
       </b-navbar-item>
       <b-navbar-item>
         gold:
-        {{player.gold}}
+        {{ player.gold }}
       </b-navbar-item>
       <b-navbar-item>
         <b-progress
           type="is-success"
           :max="player.maxHp"
-          :value=" player.hp"
+          :value="player.hp"
           :show-value="true"
-        >hp: {{player.hp}}/{{player.maxHp}}</b-progress>
+          >hp: {{ player.hp }}/{{ player.maxHp }}</b-progress
+        >
       </b-navbar-item>
     </template>
 
     <template slot="end">
-      <b-navbar-item :active="currentScene=='battle'" @click="changeScene('battle')">battle</b-navbar-item>
-      <b-navbar-item :active="currentScene=='shop'" @click="changeScene('shop')">shop</b-navbar-item>
-      <b-navbar-item :active="currentScene=='inventory'" @click="changeScene('inventory')">inventory</b-navbar-item>
-      <b-navbar-item :active="currentScene=='locations'" @click="changeScene('locations')">locations</b-navbar-item>
-      <b-navbar-item :active="currentScene=='journal'" @click="changeScene('journal')">journal</b-navbar-item>
-      <b-navbar-item :active="currentScene=='town'" @click="changeScene('town')">town</b-navbar-item>
-      <b-navbar-item :active="currentScene=='debug'" @click="changeScene('debug')">other</b-navbar-item>
+      <b-navbar-item
+        :active="currentScene == 'battle'"
+        @click="changeScene('battle')"
+        >battle</b-navbar-item
+      >
+      <b-navbar-item
+        :active="currentScene == 'shop'"
+        @click="changeScene('shop')"
+        >shop</b-navbar-item
+      >
+      <b-navbar-item
+        :active="currentScene == 'inventory'"
+        @click="changeScene('inventory')"
+        >inventory</b-navbar-item
+      >
+      <b-navbar-item
+        :active="currentScene == 'locations'"
+        @click="changeScene('locations')"
+        >locations</b-navbar-item
+      >
+      <b-navbar-item
+        :active="currentScene == 'journal'"
+        @click="changeScene('journal')"
+        >journal</b-navbar-item
+      >
+      <b-navbar-item
+        :active="currentScene == 'town'"
+        @click="changeScene('town')"
+        >town</b-navbar-item
+      >
+      <b-navbar-item
+        :active="currentScene == 'debug'"
+        @click="changeScene('debug')"
+        >other</b-navbar-item
+      >
     </template>
   </b-navbar>
 </template>
@@ -54,19 +93,19 @@ export default {
     return {};
   },
   computed: {
-    player: function () {
+    player: function() {
       return this.$store.state.player;
     },
-    levelClass: function () {
+    levelClass: function() {
       if (this.$store.state.animation.levelUp) return "pulsate-bck level"; //on level up animation
       return "level";
     },
-    currentScene: function () {
+    currentScene: function() {
       return this.$store.state.currentScene;
     },
   },
   methods: {
-    changeScene: function (sceneName) {
+    changeScene: function(sceneName) {
       this.$store.state.currentScene = sceneName;
     },
   },
@@ -75,6 +114,9 @@ export default {
 <style scoped>
 .game-menu {
   text-align: left;
+}
+
+.progress-bar {
 }
 .level {
 }

@@ -1,6 +1,9 @@
 <template>
   <div>
-    <img class="loot wobble" :src="`${$store.state.publicPath}/icons/chest.svg`" />
+    <img
+      class="loot wobble"
+      :src="`${$store.state.publicPath}/icons/chest.svg`"
+    />
   </div>
 </template>
 
@@ -11,10 +14,10 @@ export default {
     msg: String,
   },
   methods: {
-    shake: function () {},
+    shake: function() {},
   },
   computed: {
-    loot: function () {
+    loot: function() {
       return this.$store.state.currentLoot;
     },
   },
@@ -28,6 +31,13 @@ export default {
   height: 250px;
   border-radius: 1rem;
   margin-top: 2rem;
+}
+
+@media screen and (max-width: 800px) {
+  .loot {
+    width: 200px;
+    height: 200px;
+  }
 }
 
 .wobble {

@@ -1,12 +1,16 @@
 <template>
   <div class="battle-log half-width">
-    <div v-for="(item,i) in log" :key="i">
+    <div v-for="(item, i) in log" :key="i">
       <p v-if="item.isRead" class="read">{{ item.content }}</p>
-      <div v-else :class="`unread ${animationClass}`" @animationend="animationTrigger = false">
+      <div
+        v-else
+        :class="`unread ${animationClass}`"
+        @animationend="animationTrigger = false"
+      >
         <div v-if="item.color">
-          <p :style="`color:${item.color}`">{{item.content}}</p>
+          <p :style="`color:${item.color}`">{{ item.content }}</p>
         </div>
-        <p v-else>{{item.content}}</p>
+        <p v-else>{{ item.content }}</p>
       </div>
     </div>
   </div>
@@ -18,24 +22,24 @@ export default {
   props: {
     msg: String,
   },
-  data: function () {
+  data: function() {
     return {
       animationTrigger: false,
     };
   },
   computed: {
-    animationClass: function () {
+    animationClass: function() {
       if (this.animationTrigger) return "scale-up-ver-center";
       return "";
     },
-    log: function () {
+    log: function() {
       let all = [...this.$store.state.gameLog];
       all.reverse();
       return all.slice(0, 5);
     },
   },
   watch: {
-    log: function () {
+    log: function() {
       this.animationTrigger = true;
     },
   },
@@ -46,11 +50,18 @@ export default {
   font-size: 0.7rem;
   margin-top: 1rem;
 }
+
 .unread {
   font-size: 1rem;
 }
 .read {
   display: none;
+}
+
+@media screen and (max-width: 800px) {
+  .unread {
+    font-size: 0.8rem;
+  }
 }
 
 /* ----------------------------------------------

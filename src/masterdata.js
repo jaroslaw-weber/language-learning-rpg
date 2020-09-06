@@ -9,67 +9,67 @@ export default {
     },
     {
       level: 2,
-      exp: 10,
+      exp: 15,
     },
     {
       level: 3,
-      exp: 20,
+      exp: 30,
     },
     {
       level: 4,
-      exp: 40,
+      exp: 60,
     },
     {
       level: 5,
-      exp: 70,
-    },
-    {
-      level: 6,
       exp: 100,
     },
     {
-      level: 7,
+      level: 6,
       exp: 130,
     },
     {
+      level: 7,
+      exp: 170,
+    },
+    {
       level: 8,
-      exp: 160,
+      exp: 210,
     },
     {
       level: 9,
-      exp: 200,
+      exp: 240,
     },
     {
       level: 10,
-      exp: 250,
-    },
-    {
-      level: 11,
       exp: 300,
     },
     {
+      level: 11,
+      exp: 350,
+    },
+    {
       level: 12,
-      exp: 360,
+      exp: 400,
     },
     {
       level: 13,
-      exp: 420,
+      exp: 460,
     },
     {
       level: 14,
-      exp: 480,
+      exp: 520,
     },
     {
       level: 15,
-      exp: 550,
+      exp: 580,
     },
     {
       level: 16,
-      exp: 650,
+      exp: 670,
     },
     {
       level: 17,
-      exp: 760,
+      exp: 790,
     },
     {
       level: 18,
