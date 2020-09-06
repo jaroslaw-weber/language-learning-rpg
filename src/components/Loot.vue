@@ -29,7 +29,7 @@ export default {
 .loot {
   width: 250px;
   height: 250px;
-  border-radius: 1rem;
+  border-radius: 5px;
   margin-top: 2rem;
 }
 

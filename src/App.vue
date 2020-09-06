@@ -48,8 +48,30 @@ export default {
     currentScene: function() {
       return this.$store.state.currentScene;
     },
+    notifications: function() {
+      return this.$store.state.notifications;
+    },
+    newLocation: function() {
+      return this.notifications.newLocation;
+    },
   },
   mounted: function() {},
+  watch: {
+    newLocation: function() {
+      if (!this.newLocation) return; // show notification if there is new location
+
+      console.log("new location snackbar!");
+      this.$buefy.snackbar.open({
+        message: "new location unlocked!",
+        position: "is-bottom",
+        actionText: "ok",
+        indefinite: true,
+        onAction: () => {
+          this.$store.state.notifications.newLocation = false;
+        },
+      });
+    },
+  },
 };
 </script>
 
@@ -72,6 +94,10 @@ export default {
 .debug-wrapper {
   margin: 1rem;
   text-align: right;
+}
+
+.progress {
+  border-radius: 5px !important;
 }
 
 @media screen and (min-width: 800px) {

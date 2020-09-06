@@ -6,9 +6,15 @@
         <button
           @click="onSelect(location)"
           class="button location-button half-width"
-          :disabled="$store.state.player.level<location.requiredLevel"
-        >{{ location.name }}</button>
-        <p>required level: {{location.requiredLevel}}</p>
+          :disabled="$store.state.player.level < location.requiredLevel"
+        >
+          {{
+            $store.state.player.level >= location.requiredLevel
+              ? location.name
+              : "?"
+          }}
+        </button>
+        <p>required level: {{ location.requiredLevel }}</p>
       </div>
     </div>
   </div>
@@ -18,15 +24,20 @@
 export default {
   name: "locations",
   props: {},
+  data: function() {
+    return {
+      locations: [],
+    };
+  },
   methods: {
-    onSelect: function (location) {
+    onSelect: function(location) {
       this.$store.commit("goToLocation", location.id);
     },
   },
-  computed: {
-    locations: function () {
-      return this.$store.state.master.locations;
-    },
+  computed: {},
+  mounted: function() {
+    this.locations = this.$store.getters.getLocations;
+    this.locations.reverse();
   },
 };
 </script>

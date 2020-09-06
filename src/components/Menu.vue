@@ -13,7 +13,7 @@
       >
     </template>
     <template slot="start">
-      <b-navbar-item>
+      <b-navbar-item class="is-hidden-touch">
         <p
           :class="levelClass"
           @animationend="$store.state.animation.levelUp = false"
@@ -31,11 +31,11 @@
           >exp: {{ player.exp }}/{{ player.nextLevelExp }}</b-progress
         >
       </b-navbar-item>
-      <b-navbar-item>
+      <b-navbar-item class="is-hidden-touch">
         gold:
         {{ player.gold }}
       </b-navbar-item>
-      <b-navbar-item>
+      <b-navbar-item class="is-hidden-touch">
         <b-progress
           type="is-success"
           :max="player.maxHp"
@@ -70,6 +70,7 @@
           @click="changeScene('inventory')"
           >inventory</b-navbar-item
         >
+        <!--
         <b-navbar-item
           :active="currentScene == 'journal'"
           @click="changeScene('journal')"
@@ -79,11 +80,11 @@
           :active="currentScene == 'town'"
           @click="changeScene('town')"
           >town</b-navbar-item
-        >
+        >-->
         <b-navbar-item
           :active="currentScene == 'debug'"
           @click="changeScene('debug')"
-          >other</b-navbar-item
+          >settings</b-navbar-item
         >
       </b-navbar-dropdown>
       <b-navbar-item>practiced: {{ $store.state.reviewsCount }}</b-navbar-item>

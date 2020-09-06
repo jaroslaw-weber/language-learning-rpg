@@ -5,11 +5,7 @@
       <p class="shop-category">weapons</p>
       <div v-if="hasWeapons">
         <div v-for="weapon in weapons" :key="weapon.id" class="shop-item">
-          <button
-            class="button half-width"
-            @click="buyWeapon(weapon.id)"
-            :disabled="weapon.price>$store.state.player.gold"
-          >{{weapon.name}}: {{weapon.price}} gold</button>
+          <ShopItem :item="weapon" @buy="buyWeapon" />
         </div>
       </div>
       <p v-else>no new weapons</p>
@@ -18,11 +14,7 @@
       <p class="shop-category">armors</p>
       <div v-if="hasArmors">
         <div v-for="armor in armors" :key="armor.id" class="shop-item">
-          <button
-            class="button half-width"
-            @click="buyArmor(armor.id)"
-            :disabled="armor.price>$store.state.player.gold"
-          >{{armor.name}}: {{armor.price}} gold</button>
+          <ShopItem :item="armor" @buy="buyArmor" />
         </div>
       </div>
       <p v-else>no new armors</p>
@@ -31,25 +23,27 @@
 </template>
 
 <script>
+import ShopItem from "./ShopItem";
+
 export default {
   name: "Shop",
   props: {},
+  components: { ShopItem },
   computed: {
-    weapons: function () {
-      let currentWeapon = this.$store.state.player.equipped.hand;
-      return this.$store.state.master.weapons.filter(
-        (x) => x.id != 1 && x.atk > currentWeapon.atk
-      );
+    weapons: function() {
+      return this.getShop.weapons;
     },
-    armors: function () {
-      let current = this.$store.state.player.equipped.chest;
-      return this.$store.state.master.armor.filter((x) => x.def > current.def);
+    armors: function() {
+      return this.getShop.armors;
     },
-    hasWeapons: function () {
+    hasWeapons: function() {
       return this.weapons.length > 0;
     },
-    hasArmors: function () {
+    hasArmors: function() {
       return this.armors.length > 0;
+    },
+    getShop: function() {
+      return this.$store.getters.getShop;
     },
   },
   methods: {
@@ -69,9 +63,6 @@ export default {
 }
 .shop-category {
   font-size: 1.5rem;
-}
-.shop-item {
-  margin: 0.5rem;
 }
 .shop {
 }

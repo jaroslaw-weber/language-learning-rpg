@@ -46,11 +46,14 @@ export default {
 };
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .enemy-icon {
   width: 300px;
   height: 300px;
+  border-radius: 5px;
+}
+.enemy-hp {
+  margin-top: 1rem;
 }
 
 @media screen and (max-width: 800px) {
@@ -65,7 +68,7 @@ export default {
 }
 .enemy-name {
   margin: 0.5rem;
-  font-size: 1.8rem;
+  font-size: 1.5rem;
 }
 .enemy {
 }

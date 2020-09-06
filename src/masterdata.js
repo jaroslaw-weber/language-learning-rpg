@@ -113,16 +113,16 @@ export default {
   ],
   locations: [
     { id: 1, name: "forest", requiredLevel: 0, enemies: [1, 2, 3] },
-    { id: 901, name: "forest: boss stage", requiredLevel: 5, enemies: [901] },
-    { id: 2, name: "cementary", requiredLevel: 5, enemies: [4, 5, 6] },
+    { id: 901, name: "forest: boss stage", requiredLevel: 4, enemies: [901] },
+    { id: 2, name: "cementary", requiredLevel: 6, enemies: [4, 5, 6] },
     {
       id: 902,
       name: "cementary: boss stage",
-      requiredLevel: 10,
+      requiredLevel: 9,
       enemies: [902],
     },
-    { id: 3, name: "hell", requiredLevel: 10, enemies: [7, 8, 9] },
-    { id: 903, name: "hell: boss stage", requiredLevel: 15, enemies: [903] },
+    { id: 3, name: "hell", requiredLevel: 11, enemies: [7, 8, 9] },
+    { id: 903, name: "hell: boss stage", requiredLevel: 14, enemies: [903] },
   ],
   //each enemy definition
   enemies: [

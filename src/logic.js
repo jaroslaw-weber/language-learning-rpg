@@ -98,7 +98,7 @@ function updatePlayerLevel(state) {
   state.master.exp.forEach((row) => {
     let step = row.exp;
     let exp = state.player.exp;
-    console.log(`step: ${step}, row ${row}, exp:${exp}`);
+    //console.log(`step: ${step}, row ${row}, exp:${exp}`);
     if (exp >= step) {
       //console.log("new level");
       newLevel = row.level;
@@ -107,13 +107,17 @@ function updatePlayerLevel(state) {
   let isLevelUp = state.player.level < newLevel;
   console.log("updateplayerlevel");
   if (isLevelUp) {
-    console.log("levelup");
+    //console.log("levelup");
     let params = state.master.parameters.find((x) => x.level == newLevel);
-    console.log(params);
+    //console.log(params);
     addLog(state, `level up! new level: ${newLevel}`);
     state.player.maxHp = params.hp;
     state.player.hp = params.hp;
     state.animation.levelUp = true;
+
+    if (isUnlockedNewLocation(state)) {
+      state.notifications.newLocation = true;
+    }
   }
   state.player.level = newLevel;
 
@@ -255,6 +259,13 @@ function addLog(state, message, color) {
 }
 function readAllLog(state) {
   state.gameLog.forEach((x) => (x.isRead = true));
+}
+
+function isUnlockedNewLocation(state) {
+  return (
+    state.master.locations.find((x) => x.requiredLevel == state.player.level) !=
+    undefined
+  );
 }
 
 export function onAnswer(state, answer) {

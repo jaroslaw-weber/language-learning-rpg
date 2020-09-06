@@ -24,6 +24,9 @@ const defaultState = {
     },
   },
   reviewsCount: 0,
+  notifications: {
+    newLocation: false,
+  },
   gameLog: [],
   cards: undefined,
   currentEnemy: undefined,
