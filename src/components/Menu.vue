@@ -93,6 +93,7 @@
         >
       </b-navbar-dropdown>
       <b-navbar-item>practiced: {{ $store.state.reviewsCount }}</b-navbar-item>
+      <b-navbar-item class="version">v{{ $store.state.version }}</b-navbar-item>
     </template>
   </b-navbar>
 </template>
@@ -126,7 +127,9 @@ export default {
 .game-menu {
   text-align: left;
 }
-
+.version {
+  color: grey;
+}
 .progress-bar {
 }
 .level {

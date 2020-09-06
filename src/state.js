@@ -1,6 +1,9 @@
 import vueConfig from "../vue.config.js";
 import masterdata from "./masterdata.js";
+import packageConfig from "../package.json";
+
 const defaultState = {
+  version: packageConfig.version,
   animation: {
     enemyHit: false,
     playerHit: false,

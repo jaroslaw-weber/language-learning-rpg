@@ -13,6 +13,7 @@
 
         <DebugPanel v-if="$store.state.currentScene == 'debug'" />
       </div>
+
       <div v-else>
         <SelectDeck />
       </div>
