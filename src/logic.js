@@ -203,6 +203,7 @@ function lootToString(loot) {
   return result;
 }
 function onEnemyKilled(state) {
+  let enemyId = state.currentEnemy.id;
   state.animation.enemyHit = false;
   //if max level then dont add exp
   if (!isMaxLevel(state)) {
@@ -215,6 +216,18 @@ function onEnemyKilled(state) {
 
   let lootLog = lootToString(loot);
   addLog(state, lootLog);
+  increaseEnemyKilledCounter(state, enemyId);
+}
+
+function increaseEnemyKilledCounter(state, enemyId) {
+  //game stats
+  let table = state.player.gameStats.enemiesKilled;
+  let current = table.find((x) => x.id == enemyId);
+  if (current == undefined) {
+    table.push({ id: enemyId, count: 1 });
+  } else {
+    current.count += 1;
+  }
 }
 
 function attack(state) {
@@ -244,6 +257,7 @@ export function collectLoot(state) {
     state.currentLoot.forEach((x) => {
       if (x.type == "gold") {
         state.player.gold += x.amount;
+        onGoldUpdated(state);
       }
     });
     state.currentLoot = undefined;
@@ -252,6 +266,14 @@ export function collectLoot(state) {
   approachNewEnemy(state);
 
   save(state);
+}
+
+//update for achievements
+function onGoldUpdated(state) {
+  let goldNow = state.player.gold;
+  if (goldNow > state.player.gameStats.maxGold) {
+    state.player.gameStats.maxGold = goldNow;
+  }
 }
 
 function addLog(state, message, color) {
@@ -303,6 +325,7 @@ export function buyArmor(state, armorId) {
 }
 export function debugAddGold(state, amount) {
   state.player.gold += amount;
+  onGoldUpdated(state);
 }
 export function debugLevelUp(state) {
   let nextLevel = state.player.level + 1;

@@ -9,6 +9,7 @@
         <Locations v-if="currentScene == 'locations'" />
         <Journal v-if="currentScene == 'journal'" />
         <Town v-if="currentScene == 'town'" />
+        <Achievements v-if="currentScene == 'achievements'" />
 
         <DebugPanel v-if="$store.state.currentScene == 'debug'" />
       </div>
@@ -30,9 +31,11 @@ import SelectDeck from "./components/SelectDeck";
 import Journal from "./components/Journal";
 import Town from "./components/Town";
 
+import Achievements from "./components/Achievements";
 export default {
   name: "App",
   components: {
+    Achievements,
     Battle,
     Shop,
     Inventory,

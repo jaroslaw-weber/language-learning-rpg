@@ -82,6 +82,43 @@ const store = new Vuex.Store({
 
       return result;
     },
+    getAchievements: (state) => {
+      let result = [];
+      state.master.achievements.forEach((a) => {
+        let condition = a.condition;
+        if (condition.type == "kill") {
+          let enemyId = condition.enemyId;
+          let enemiesKilledInfo = state.player.gameStats.enemiesKilled.find(
+            (x) => x.id == enemyId
+          );
+          let count =
+            enemiesKilledInfo == undefined ? 0 : enemiesKilledInfo.count;
+          let target = condition.count;
+          let enemy = state.master.enemies.find((x) => x.id == enemyId);
+          let playerAchievementString = `kill ${target} ${enemy.name} (progress: ${count}/${target})`;
+
+          let playerAchievement = {
+            text: playerAchievementString,
+            isDone: count >= target,
+          };
+
+          result.push(playerAchievement);
+        } else if (condition.type == "gold") {
+          let count = state.player.gameStats.maxGold;
+          let target = condition.amount;
+          let playerAchievementString = `have ${target} gold (progress: ${count}/${target})`;
+
+          let playerAchievement = {
+            text: playerAchievementString,
+            isDone: count >= target,
+          };
+
+          result.push(playerAchievement);
+        }
+      });
+      console.log(result);
+      return result;
+    },
   },
 });
 

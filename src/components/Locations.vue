@@ -36,8 +36,7 @@ export default {
   },
   computed: {},
   mounted: function() {
-    this.locations = this.$store.getters.getLocations;
-    this.locations.reverse();
+    this.locations = this.$store.getters.getLocations.slice().reverse();
   },
 };
 </script>

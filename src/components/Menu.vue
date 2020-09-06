@@ -70,6 +70,11 @@
           @click="changeScene('inventory')"
           >inventory</b-navbar-item
         >
+        <b-navbar-item
+          :active="currentScene == 'achievements'"
+          @click="changeScene('achievements')"
+          >achievements</b-navbar-item
+        >
         <!--
         <b-navbar-item
           :active="currentScene == 'journal'"

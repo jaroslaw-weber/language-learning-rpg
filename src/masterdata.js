@@ -123,6 +123,13 @@ export default {
     },
     { id: 3, name: "hell", requiredLevel: 11, enemies: [7, 8, 9] },
     { id: 903, name: "hell: boss stage", requiredLevel: 14, enemies: [903] },
+    { id: 4, name: "vampire castle", requiredLevel: 16, enemies: [10, 11, 12] },
+    {
+      id: 904,
+      name: "vampire castle: boss stage",
+      requiredLevel: 19,
+      enemies: [904],
+    },
   ],
   //each enemy definition
   enemies: [
@@ -209,6 +216,33 @@ export default {
       loot: [{ type: "gold", amount: 30 }],
     },
     {
+      id: 10,
+      atk: 14,
+      hp: 30,
+      name: "baby bat",
+      image: "swamp-bat",
+      exp: 13,
+      loot: [{ type: "gold", amount: 40 }],
+    },
+    {
+      id: 11,
+      atk: 18,
+      hp: 35,
+      name: "adult bat",
+      image: "imp",
+      exp: 13,
+      loot: [{ type: "gold", amount: 45 }],
+    },
+    {
+      id: 12,
+      atk: 20,
+      hp: 45,
+      name: "baby vampire",
+      image: "swallower",
+      exp: 13,
+      loot: [{ type: "gold", amount: 50 }],
+    },
+    {
       id: 901,
       atk: 15,
       hp: 50,
@@ -234,6 +268,15 @@ export default {
       image: "diablo-skull",
       exp: 50,
       loot: [{ type: "gold", amount: 110 }],
+    },
+    {
+      id: 904,
+      atk: 40,
+      hp: 200,
+      name: "vampire",
+      image: "vampire-dracula",
+      exp: 90,
+      loot: [{ type: "gold", amount: 180 }],
     },
   ],
   weapons: [
@@ -265,7 +308,21 @@ export default {
       requiredLevel: 1,
     },
   ],
-  condition: [{ id: 1, type: "kill", amount: 3, enemyId: 1 }],
+  achievements: [
+    { id: 1, condition: { type: "kill", enemyId: 1, count: 10 } },
+    { id: 2, condition: { type: "kill", enemyId: 2, count: 10 } },
+    { id: 3, condition: { type: "kill", enemyId: 3, count: 10 } },
+    { id: 4, condition: { type: "kill", enemyId: 4, count: 20 } },
+    { id: 5, condition: { type: "kill", enemyId: 5, count: 20 } },
+    { id: 6, condition: { type: "kill", enemyId: 6, count: 20 } },
+    { id: 7, condition: { type: "kill", enemyId: 7, count: 30 } },
+    { id: 8, condition: { type: "gold", amount: 100 } },
+  ],
+
+  condition: [
+    { id: 1, type: "kill", count: 3, enemyId: 1 },
+    { id: 1, type: "kill", count: 3, enemyId: 2 },
+  ],
   reward: [{ id: 1, type: "weapon", masterId: 2, amount: 1 }],
   miscItems: [{ name: "small-potion", itemType: "heal", heal: 10 }],
 };

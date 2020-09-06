@@ -22,6 +22,12 @@ const defaultState = {
       hand: masterdata.weapons[0],
       chest: masterdata.armor[0],
     },
+    gameStats: {
+      //enemies killed counter, for achievements
+      enemiesKilled: [{ id: 1, count: 0 }],
+      //how much gold had at once
+      maxGold: 0,
+    },
   },
   reviewsCount: 0,
   notifications: {
