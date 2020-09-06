@@ -3,7 +3,7 @@
     <div
       :class="`battle-grid full-width ${battleAnimation}`"
       @animationend="resetAnimations()"
-      v-if="$store.state.player.hp>0"
+      v-if="$store.state.player.hp > 0"
     >
       <div>
         <Enemy class="item3 half-width" v-if="this.$store.state.currentEnemy" />
@@ -17,7 +17,9 @@
           <button
             @click="$store.commit('collectLoot')"
             class="button collect-loot half-width"
-          >collect loot</button>
+          >
+            collect loot
+          </button>
         </div>
       </div>
     </div>
@@ -55,7 +57,7 @@ export default {
     },
   },
   computed: {
-    battleAnimation: function () {
+    battleAnimation: function() {
       if (this.$store.state.animation.playerHit) {
         return "shake-horizontal";
       }
@@ -97,7 +99,8 @@ export default {
 
 @media screen and (max-width: 800px) {
   .collect-loot {
-    height: 2rem;
+    margin-top: 0.5rem;
+    height: 2.5rem;
   }
 }
 

@@ -8,17 +8,25 @@
             v-if="answer.isCorrect"
             class="button answer-button correct-answer"
             disabled
-          >{{ answer.display }}</button>
+          >
+            {{ answer.display }}
+          </button>
 
-          <button v-else class="button answer-button" disabled>{{ answer.display }}</button>
+          <button v-else class="button answer-button" disabled>
+            {{ answer.display }}
+          </button>
         </div>
         <div v-else>
-          <button @click="onAnswer(answer)" class="button answer-button">{{ answer.display }}</button>
+          <button @click="onAnswer(answer)" class="button answer-button">
+            {{ answer.display }}
+          </button>
         </div>
       </div>
     </div>
     <div v-if="$store.state.isShowAnswer && $store.state.currentEnemy">
-      <button class="button next-turn" @click="$store.commit('nextTurn')">next turn</button>
+      <button class="button next-turn" @click="$store.commit('nextTurn')">
+        next turn
+      </button>
     </div>
   </div>
 </template>
@@ -28,12 +36,12 @@ export default {
   name: "Answers",
   props: {},
   methods: {
-    onAnswer: function (answer) {
+    onAnswer: function(answer) {
       this.$store.commit("onAnswer", answer);
     },
   },
   computed: {
-    answers: function () {
+    answers: function() {
       return this.$store.state.answers;
     },
   },
