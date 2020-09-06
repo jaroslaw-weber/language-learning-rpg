@@ -52,36 +52,41 @@
         @click="changeScene('battle')"
         >battle</b-navbar-item
       >
+
       <b-navbar-item
         :active="currentScene == 'shop'"
         @click="changeScene('shop')"
         >shop</b-navbar-item
       >
       <b-navbar-item
-        :active="currentScene == 'inventory'"
-        @click="changeScene('inventory')"
-        >inventory</b-navbar-item
-      >
-      <b-navbar-item
         :active="currentScene == 'locations'"
         @click="changeScene('locations')"
         >locations</b-navbar-item
       >
-      <b-navbar-item
-        :active="currentScene == 'journal'"
-        @click="changeScene('journal')"
-        >journal</b-navbar-item
-      >
-      <b-navbar-item
-        :active="currentScene == 'town'"
-        @click="changeScene('town')"
-        >town</b-navbar-item
-      >
-      <b-navbar-item
-        :active="currentScene == 'debug'"
-        @click="changeScene('debug')"
-        >other</b-navbar-item
-      >
+
+      <b-navbar-dropdown label="More...">
+        <b-navbar-item
+          :active="currentScene == 'inventory'"
+          @click="changeScene('inventory')"
+          >inventory</b-navbar-item
+        >
+        <b-navbar-item
+          :active="currentScene == 'journal'"
+          @click="changeScene('journal')"
+          >journal</b-navbar-item
+        >
+        <b-navbar-item
+          :active="currentScene == 'town'"
+          @click="changeScene('town')"
+          >town</b-navbar-item
+        >
+        <b-navbar-item
+          :active="currentScene == 'debug'"
+          @click="changeScene('debug')"
+          >other</b-navbar-item
+        >
+      </b-navbar-dropdown>
+      <b-navbar-item>practiced: {{ $store.state.reviewsCount }}</b-navbar-item>
     </template>
   </b-navbar>
 </template>

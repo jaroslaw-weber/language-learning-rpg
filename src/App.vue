@@ -3,14 +3,14 @@
     <div class="container">
       <div v-if="$store.state.cards">
         <Menu />
-        <Battle v-if="currentScene=='battle'" />
+        <Battle v-if="currentScene == 'battle'" />
         <Shop v-if="currentScene == 'shop'" />
         <Inventory v-if="currentScene == 'inventory'" />
-        <Locations v-if="currentScene=='locations'" />
-        <Journal v-if="currentScene=='journal'" />
-        <Town v-if="currentScene=='town'" />
+        <Locations v-if="currentScene == 'locations'" />
+        <Journal v-if="currentScene == 'journal'" />
+        <Town v-if="currentScene == 'town'" />
 
-        <DebugPanel v-if="$store.state.currentScene=='debug'" />
+        <DebugPanel v-if="$store.state.currentScene == 'debug'" />
       </div>
       <div v-else>
         <SelectDeck />
@@ -45,11 +45,11 @@ export default {
   },
   methods: {},
   computed: {
-    currentScene: function () {
+    currentScene: function() {
       return this.$store.state.currentScene;
     },
   },
-  mounted: function () {},
+  mounted: function() {},
 };
 </script>
 

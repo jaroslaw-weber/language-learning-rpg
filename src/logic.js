@@ -259,6 +259,8 @@ function readAllLog(state) {
 
 export function onAnswer(state, answer) {
   readAllLog(state);
+
+  state.reviewsCount += 1;
   //console.log(answer);
   //save info about your answer. need this to display result
   let previousAnswer = state.previousAnswer;

@@ -23,6 +23,7 @@ const defaultState = {
       chest: masterdata.armor[0],
     },
   },
+  reviewsCount: 0,
   gameLog: [],
   cards: undefined,
   currentEnemy: undefined,
