@@ -69,7 +69,7 @@ export default {
 
 @media screen and (max-width: 800px) {
   .answer-button {
-    height: 2.5rem;
+    height: 2rem;
   }
   .next-turn {
     margin-top: 0.5rem;

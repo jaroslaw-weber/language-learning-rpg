@@ -1,9 +1,11 @@
 <template>
   <div>
+    <!--
     <div class="who-turn">
       <p v-if="$store.state.isMyTurn">my turn</p>
       <p v-else>enemy turn</p>
     </div>
+    -->
     <div
       :class="`battle-grid full-width ${battleAnimation}`"
       @animationend="resetAnimations()"
