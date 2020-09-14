@@ -1,5 +1,9 @@
 <template>
   <div>
+    <div class="who-turn">
+      <p v-if="$store.state.isMyTurn">my turn</p>
+      <p v-else>enemy turn</p>
+    </div>
     <div
       :class="`battle-grid full-width ${battleAnimation}`"
       @animationend="resetAnimations()"
@@ -17,9 +21,7 @@
           <button
             @click="$store.commit('collectLoot')"
             class="button collect-loot half-width"
-          >
-            collect loot
-          </button>
+          >collect loot</button>
         </div>
       </div>
     </div>
@@ -57,12 +59,18 @@ export default {
     },
   },
   computed: {
-    battleAnimation: function() {
+    player: function () {
+      return this.$store.state.player;
+    },
+    battleAnimation: function () {
+      return "";
+      /*
       if (this.$store.state.animation.playerHit) {
         return "shake-horizontal";
       }
       if (this.$store.state.animation.playerDodge) return ""; //todo player dodge animation. i tried to add but its bugged
       return "";
+      */
     },
   },
 };
@@ -70,6 +78,9 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.who-turn {
+  margin: 0.5rem;
+}
 .battle-grid {
   margin: auto;
 

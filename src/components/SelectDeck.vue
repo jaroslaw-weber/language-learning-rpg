@@ -1,16 +1,14 @@
 <template>
   <div class="select-decks">
     <p>what do you want to learn?</p>
-    <button class="button deck-button" @click="loadDeck('spanish200.csv')">
-      spanish 200 words
-    </button>
+    <button class="button deck-button" @click="loadDeck('spanish200.csv')">spanish 200 words</button>
+    <br />
+    <button class="button deck-button" @click="loadDeck('german500.csv')">german 500 words</button>
     <br />
     <button
       class="button deck-button"
       @click="loadDeck('korean-intermediate.csv')"
-    >
-      intermediate korean
-    </button>
+    >intermediate korean</button>
 
     <div v-if="isAdvancedView">
       <hr />
@@ -21,11 +19,7 @@
 
       <div class="upload-wrapper">
         <b-field class="file is-primary" :class="{ 'has-name': !!file }">
-          <b-upload
-            v-model="file"
-            class="file-label upload-button"
-            @input="onFileUploaded()"
-          >
+          <b-upload v-model="file" class="file-label upload-button" @input="onFileUploaded()">
             <span class="file-cta">
               <!--<b-icon class="file-icon" icon="upload"></b-icon>-->
               <span class="file-label">Click to upload</span>
@@ -46,16 +40,10 @@ front,back
 공유하다,share
 낮잠,nap
 뚱뚱한,fat
-코를 골다,snore</pre
-      >
+코를 골다,snore</pre>
     </div>
     <div v-else>
-      <button
-        class="button deck-button is-primary"
-        @click="isAdvancedView = true"
-      >
-        something else
-      </button>
+      <button class="button deck-button is-primary" @click="isAdvancedView = true">something else</button>
     </div>
   </div>
 </template>
@@ -64,20 +52,20 @@ front,back
 export default {
   name: "decks",
   props: {},
-  data: function() {
+  data: function () {
     return { file: undefined, isAdvancedView: false };
   },
 
   methods: {
-    loadDeck: function(deck) {
+    loadDeck: function (deck) {
       this.$store.commit("loadDeck", deck);
     },
-    onFileUploaded: function() {
+    onFileUploaded: function () {
       this.$store.commit("loadCustomDeck", this.file);
     },
   },
   computed: {
-    decks: function() {
+    decks: function () {
       return this.$store.state.decks;
     },
   },

@@ -14,8 +14,7 @@
       :value="currentEnemy.hp"
       :show-value="true"
       size="is-large"
-      >hp: {{ currentEnemy.hp }}/{{ currentEnemy.maxHp }}</b-progress
-    >
+    >hp: {{ currentEnemy.hp }}/{{ currentEnemy.maxHp }}</b-progress>
   </div>
 </template>
 
@@ -26,18 +25,18 @@ export default {
     msg: String,
   },
   methods: {
-    shake: function() {},
-    resetAnimations: function() {
+    shake: function () {},
+    resetAnimations: function () {
       let anim = this.$store.state.animation;
       anim.enemyHit = false;
       anim.enemyDodge = false;
     },
   },
   computed: {
-    currentEnemy: function() {
+    currentEnemy: function () {
       return this.$store.state.currentEnemy;
     },
-    animation: function() {
+    animation: function () {
       if (this.$store.state.animation.enemyHit) return "shake-horizontal";
       if (this.$store.state.animation.enemyDodge) return "slide-out-left";
       return "";
@@ -58,11 +57,11 @@ export default {
 
 @media screen and (max-width: 800px) {
   .enemy-icon {
-    width: 200px;
-    height: 200px;
+    width: 150px;
+    height: 150px;
   }
   .enemy-hp {
-    width: 200px;
+    width: 150px;
     margin: auto;
   }
 }
@@ -170,8 +169,8 @@ export default {
     opacity: 1;
   }
   50% {
-    -webkit-transform: translateX(-300px);
-    transform: translateX(-300px);
+    -webkit-transform: translateX(-100px);
+    transform: translateX(-100px);
     opacity: 0;
   }
   100% {

@@ -3,6 +3,8 @@ const parse = require("csv-parse/lib/sync");
 import clone from "clone";
 import defaultState from "./state.js";
 
+import masterdata from "./masterdata.js";
+
 const green = "green";
 const red = "red";
 
@@ -31,6 +33,8 @@ export function load(store) {
   if (progressJson == "undefined") return;
   if (progressJson == undefined) return;
   let parsed = JSON.parse(progressJson);
+
+  parsed.master = masterdata;
   store.replaceState(parsed);
 }
 export function reset(store) {
@@ -72,7 +76,11 @@ export function loadCustomDeck(state, file) {
   });
 }
 function enemyAttack(state) {
-  if (state.previousAnswer.wasCorrect) {
+  if (state.currentEnemy == undefined) return;
+
+  //let dodge = state.previousAnswer.wasCorrect;
+  let dodge = false; //todo: rework dodge, delete for now
+  if (dodge) {
     addLog(state, "you have dodged the attack!", green);
     state.animation.playerDodge = true;
   } else {
@@ -85,7 +93,9 @@ function enemyAttack(state) {
     state.animation.playerHit = true;
   }
 
-  state.isMyTurn = !state.isMyTurn;
+  setTimeout(() => {
+    state.isMyTurn = !state.isMyTurn;
+  }, 300);
 
   state.isShowAnswer = true;
   //loadNewCard(state);
@@ -114,10 +124,6 @@ function updatePlayerLevel(state) {
     state.player.maxHp = params.hp;
     state.player.hp = params.hp;
     state.animation.levelUp = true;
-
-    if (isUnlockedNewLocation(state)) {
-      state.notifications.newLocation = true;
-    }
   }
   state.player.level = newLevel;
 
@@ -125,6 +131,12 @@ function updatePlayerLevel(state) {
   if (nextLevelExp != undefined) {
     state.player.nextLevelExp = nextLevelExp;
   }
+  /*
+  if (isLevelUp) {
+    if (isUnlockedNewLocation(state)) {
+      state.notifications.newLocation = true;
+    }
+  }*/
 }
 
 function getNextLevelExp(state) {
@@ -283,12 +295,13 @@ function readAllLog(state) {
   state.gameLog.forEach((x) => (x.isRead = true));
 }
 
+/*
 function isUnlockedNewLocation(state) {
   return (
     state.master.locations.find((x) => x.requiredLevel == state.player.level) !=
     undefined
   );
-}
+}*/
 
 export function onAnswer(state, answer) {
   readAllLog(state);
@@ -305,11 +318,10 @@ export function onAnswer(state, answer) {
   previousAnswer.yourAnswer = answer;
   previousAnswer.wasCorrect = isCorrect;
 
-  if (state.isMyTurn) {
-    attack(state);
-  } else {
+  attack(state);
+  setTimeout(() => {
     enemyAttack(state);
-  }
+  }, 300);
 }
 export function buyWeapon(state, weaponId) {
   let weapon = state.master.weapons.find((x) => x.id == weaponId);
@@ -322,6 +334,15 @@ export function buyArmor(state, armorId) {
   let armor = state.master.armor.find((x) => x.id == armorId);
   state.player.equipped.chest = armor;
   state.player.gold -= armor.price;
+}
+export function buyPotion(state) {
+  let cost = 10; //todo add different potions
+  let effect = 10; // todo add different potions
+  state.player.hp += effect;
+  if (state.player.hp >= state.player.maxHp) {
+    state.player.hp = state.player.maxHp;
+  }
+  state.player.gold -= cost;
 }
 export function debugAddGold(state, amount) {
   state.player.gold += amount;
