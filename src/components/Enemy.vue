@@ -55,19 +55,22 @@ export default {
   margin-top: 1rem;
 }
 
-@media screen and (max-width: 800px) {
-  .enemy-icon {
-    width: 150px;
-    height: 150px;
-  }
-  .enemy-hp {
-    width: 150px;
-    margin: auto;
-  }
-}
 .enemy-name {
   margin: 0.5rem;
   font-size: 1.5rem;
+}
+@media screen and (max-width: 800px) {
+  .enemy-icon {
+    width: 120px;
+    height: 120px;
+  }
+  .enemy-hp {
+    width: 120px;
+    margin: auto;
+  }
+  .enemy-name {
+    font-size: 1.2rem;
+  }
 }
 .enemy {
 }

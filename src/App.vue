@@ -111,6 +111,7 @@ export default {
   text-align: center;
   color: #2c3e50;
   font-family: "Quicksand", sans-serif;
+  margin-bottom: 7rem;
 }
 .wrapper {
   width: 600px;
