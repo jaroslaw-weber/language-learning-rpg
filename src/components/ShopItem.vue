@@ -1,17 +1,22 @@
 <template>
   <div class="shop-item">
     <button
-      v-if="canBuy"
       class="button half-width shop-button"
       @click="$emit('buy', item.id)"
+      :disabled="!canBuy"
     >
-      {{ item.name }} <br />
-      {{ itemParameters }} <br />
-      {{ item.price }} gold
-    </button>
-
-    <button v-else class="button half-width" disabled>
-      ? ({{ item.price }} gold)
+      <img
+        v-if="item.icon"
+        class="item-icon"
+        :src="`${$store.state.publicPath}icons/item/${item.icon}.svg`"
+      />
+      <p>
+        {{ item.name }}
+        <br v-if="itemParameters" />
+        {{ itemParameters }}
+        <br />
+        {{ item.price }} gold
+      </p>
     </button>
   </div>
 </template>
@@ -19,12 +24,12 @@
 <script>
 export default {
   name: "Shop",
-  props: { item: Object },
+  props: { item: Object, alwaysShow: Boolean },
   computed: {
-    canBuy: function() {
+    canBuy: function () {
       return this.item.price <= this.$store.state.player.gold;
     },
-    itemParameters: function() {
+    itemParameters: function () {
       if (this.item.atk != undefined) {
         return `attack: ${this.item.atk}`;
       }
@@ -39,6 +44,12 @@ export default {
 </script>
 
 <style scoped>
+.item-icon {
+  width: 4rem;
+  height: 4rem;
+  margin-right: 2rem;
+  border-radius: 0.2rem;
+}
 .shop-item {
   margin: 0.5rem;
 }

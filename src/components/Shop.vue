@@ -1,6 +1,11 @@
 <template>
   <div class="shop">
     <p class="shop-title">shop</p>
+    <div class="show-potions">
+      <p class="shop-category">potions</p>
+      <!-- todo: dont hardcode-->
+      <ShopItem :item="potions[0]" :alwaysShow="true" @buy="buyPotion" />
+    </div>
     <div class="shop-weapons">
       <p class="shop-category">weapons</p>
       <div v-if="hasWeapons">
@@ -28,21 +33,25 @@ import ShopItem from "./ShopItem";
 export default {
   name: "Shop",
   props: {},
+
   components: { ShopItem },
   computed: {
-    weapons: function() {
+    weapons: function () {
       return this.getShop.weapons;
     },
-    armors: function() {
+    armors: function () {
       return this.getShop.armors;
     },
-    hasWeapons: function() {
+    potions: function () {
+      return [{ price: 10, name: "small potion", icon: "potion-ball" }];
+    },
+    hasWeapons: function () {
       return this.weapons.length > 0;
     },
-    hasArmors: function() {
+    hasArmors: function () {
       return this.armors.length > 0;
     },
-    getShop: function() {
+    getShop: function () {
       return this.$store.getters.getShop;
     },
   },
@@ -52,6 +61,10 @@ export default {
     },
     buyArmor(armorId) {
       this.$store.commit("buyArmor", armorId);
+    },
+    buyPotion(potionId) {
+      console.log(potionId);
+      this.$store.commit("buyPotion");
     },
   },
 };

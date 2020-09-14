@@ -24,6 +24,9 @@ const store = new Vuex.Store({
     buyArmor(state, armorId) {
       logic.buyArmor(state, armorId);
     },
+    buyPotion(state) {
+      logic.buyPotion(state);
+    },
     debugAddGold(state, amount) {
       logic.debugAddGold(state, amount);
     },
@@ -51,9 +54,32 @@ const store = new Vuex.Store({
       console.log("getting locations");
       let locations = state.master.locations;
 
-      let available = locations.filter(
-        (x) => x.requiredLevel <= state.player.level
-      );
+      locations.forEach((location) => {
+        let conditions = location.unlockConditions;
+        let isLocked = false;
+        conditions.forEach((condition) => {
+          let requiredLevel = condition.level;
+          if (requiredLevel != undefined) {
+            let playerLevel = state.player.level;
+            if (playerLevel < requiredLevel) {
+              isLocked = true;
+              return;
+            }
+          }
+          let requiredKill = condition.kill;
+          if (requiredKill != undefined) {
+            let killed = state.player.gameStats.enemiesKilled;
+            let isKilled = killed.find((x) => x.id == requiredKill);
+            if (isKilled == undefined || isKilled.count == 0) {
+              isLocked = true;
+              return;
+            }
+          }
+        });
+        location.isLocked = isLocked;
+      });
+
+      let available = locations.filter((x) => !x.isLocked);
       //console.log(available);
       let showCount = available.length + 1;
       //console.log("show count");
@@ -76,8 +102,8 @@ const store = new Vuex.Store({
       let myArmors = allArmors.filter((x) => currentArmor.def < x.def);
 
       let result = {
-        armors: myArmors.slice(0, 4),
-        weapons: myWeapons.slice(0, 4),
+        armors: myArmors.slice(0, 1),
+        weapons: myWeapons.slice(0, 1),
       };
 
       return result;

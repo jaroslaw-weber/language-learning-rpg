@@ -2,24 +2,15 @@
   <b-navbar>
     <template slot="brand">
       <!--only mobile-->
-      <b-navbar-item class="is-hidden-desktop"
-        >level: {{ player.level }}</b-navbar-item
-      >
-      <b-navbar-item class="is-hidden-desktop"
-        >gold: {{ player.gold }}</b-navbar-item
-      >
-      <b-navbar-item class="is-hidden-desktop"
-        >hp: {{ player.hp }}/{{ player.maxHp }}</b-navbar-item
-      >
+      <b-navbar-item class="is-hidden-desktop">level: {{ player.level }}</b-navbar-item>
+      <b-navbar-item class="is-hidden-desktop">gold: {{ player.gold }}</b-navbar-item>
     </template>
     <template slot="start">
       <b-navbar-item class="is-hidden-touch">
         <p
           :class="levelClass"
           @animationend="$store.state.animation.levelUp = false"
-        >
-          level: {{ player.level }}
-        </p>
+        >level: {{ player.level }}</p>
       </b-navbar-item>
       <b-navbar-item>
         <b-progress
@@ -28,53 +19,44 @@
           :max="player.nextLevelExp"
           :value="player.exp"
           :show-value="true"
-          >exp: {{ player.exp }}/{{ player.nextLevelExp }}</b-progress
-        >
+        >exp: {{ player.exp }}/{{ player.nextLevelExp }}</b-progress>
       </b-navbar-item>
       <b-navbar-item class="is-hidden-touch">
         gold:
         {{ player.gold }}
       </b-navbar-item>
+      <!--
       <b-navbar-item class="is-hidden-touch">
         <b-progress
           type="is-success"
           :max="player.maxHp"
           :value="player.hp"
           :show-value="true"
-          >hp: {{ player.hp }}/{{ player.maxHp }}</b-progress
-        >
+        >hp: {{ player.hp }}/{{ player.maxHp }}</b-progress>
       </b-navbar-item>
+      -->
     </template>
 
     <template slot="end">
-      <b-navbar-item
-        :active="currentScene == 'battle'"
-        @click="changeScene('battle')"
-        >battle</b-navbar-item
-      >
+      <b-navbar-item :active="currentScene == 'battle'" @click="changeScene('battle')">battle</b-navbar-item>
 
-      <b-navbar-item
-        :active="currentScene == 'shop'"
-        @click="changeScene('shop')"
-        >shop</b-navbar-item
-      >
+      <b-navbar-item :active="currentScene == 'shop'" @click="changeScene('shop')">shop</b-navbar-item>
       <b-navbar-item
         :active="currentScene == 'locations'"
         @click="changeScene('locations')"
-        >locations</b-navbar-item
-      >
+      >locations</b-navbar-item>
 
       <b-navbar-dropdown label="More...">
         <b-navbar-item
           :active="currentScene == 'inventory'"
           @click="changeScene('inventory')"
-          >inventory</b-navbar-item
-        >
+        >inventory</b-navbar-item>
+        <!--
         <b-navbar-item
           :active="currentScene == 'achievements'"
           @click="changeScene('achievements')"
-          >achievements</b-navbar-item
-        >
+        >achievements</b-navbar-item>
+        -->
         <!--
         <b-navbar-item
           :active="currentScene == 'journal'"
@@ -86,11 +68,7 @@
           @click="changeScene('town')"
           >town</b-navbar-item
         >-->
-        <b-navbar-item
-          :active="currentScene == 'debug'"
-          @click="changeScene('debug')"
-          >settings</b-navbar-item
-        >
+        <b-navbar-item :active="currentScene == 'debug'" @click="changeScene('debug')">settings</b-navbar-item>
       </b-navbar-dropdown>
       <b-navbar-item>practiced: {{ $store.state.reviewsCount }}</b-navbar-item>
       <b-navbar-item class="version">v{{ $store.state.version }}</b-navbar-item>
@@ -105,19 +83,19 @@ export default {
     return {};
   },
   computed: {
-    player: function() {
+    player: function () {
       return this.$store.state.player;
     },
-    levelClass: function() {
+    levelClass: function () {
       if (this.$store.state.animation.levelUp) return "pulsate-bck level"; //on level up animation
       return "level";
     },
-    currentScene: function() {
+    currentScene: function () {
       return this.$store.state.currentScene;
     },
   },
   methods: {
-    changeScene: function(sceneName) {
+    changeScene: function (sceneName) {
       this.$store.state.currentScene = sceneName;
     },
   },

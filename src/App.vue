@@ -2,7 +2,20 @@
   <div id="app">
     <div class="container">
       <div v-if="$store.state.cards">
+        <div v-if="currentScene =='battle' || currentScene == 'shop'">
+          <div class="container">
+            <b-progress
+              class="player-hp"
+              type="is-success"
+              size="is-large"
+              :max="player.maxHp"
+              :value="player.hp"
+              :show-value="true"
+            >player hp: {{ player.hp }}/{{ player.maxHp }}</b-progress>
+          </div>
+        </div>
         <Menu />
+
         <Battle v-if="currentScene == 'battle'" />
         <Shop v-if="currentScene == 'shop'" />
         <Inventory v-if="currentScene == 'inventory'" />
@@ -49,19 +62,22 @@ export default {
   },
   methods: {},
   computed: {
-    currentScene: function() {
+    player: function () {
+      return this.$store.state.player;
+    },
+    currentScene: function () {
       return this.$store.state.currentScene;
     },
-    notifications: function() {
+    notifications: function () {
       return this.$store.state.notifications;
     },
-    newLocation: function() {
+    newLocation: function () {
       return this.notifications.newLocation;
     },
   },
-  mounted: function() {},
+  mounted: function () {},
   watch: {
-    newLocation: function() {
+    newLocation: function () {
       if (!this.newLocation) return; // show notification if there is new location
 
       console.log("new location snackbar!");
@@ -81,7 +97,14 @@ export default {
 
 <style>
 @import url("https://fonts.googleapis.com/css2?family=Quicksand&display=swap");
+.player-hp {
+  width: 90%;
 
+  margin: 1rem auto 1rem auto;
+}
+.footer {
+  margin-top: 1rem;
+}
 #app {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
