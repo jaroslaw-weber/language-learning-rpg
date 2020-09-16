@@ -25,6 +25,7 @@
         <Achievements v-if="currentScene == 'achievements'" />
 
         <DebugPanel v-if="$store.state.currentScene == 'debug'" />
+        <CardList v-if="currentScene == 'cardlist'" />
       </div>
 
       <div v-else>
@@ -44,6 +45,7 @@ import Menu from "./components/Menu";
 import SelectDeck from "./components/SelectDeck";
 import Journal from "./components/Journal";
 import Town from "./components/Town";
+import CardList from "./components/CardList";
 
 import Achievements from "./components/Achievements";
 export default {
@@ -59,6 +61,7 @@ export default {
     SelectDeck,
     Journal,
     Town,
+    CardList,
   },
   methods: {},
   computed: {

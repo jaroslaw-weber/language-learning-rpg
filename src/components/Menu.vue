@@ -51,6 +51,11 @@
           :active="currentScene == 'inventory'"
           @click="changeScene('inventory')"
         >inventory</b-navbar-item>
+
+        <b-navbar-item
+          :active="currentScene == 'cardlist'"
+          @click="changeScene('cardlist')"
+        >vocabulary list</b-navbar-item>
         <!--
         <b-navbar-item
           :active="currentScene == 'achievements'"

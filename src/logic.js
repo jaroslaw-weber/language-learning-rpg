@@ -95,6 +95,7 @@ function enemyAttack(state) {
 
   setTimeout(() => {
     state.isMyTurn = !state.isMyTurn;
+    state.blockClick = false;
   }, 300);
 
   state.isShowAnswer = true;
@@ -168,6 +169,7 @@ function getRandomEnemy(state) {
   return instance;
 }
 function approachNewEnemy(state) {
+  state.blockClick = false;
   addLog(state, "you have approached new enemy!");
 
   state.isShowAnswer = false;
@@ -318,11 +320,19 @@ export function onAnswer(state, answer) {
   previousAnswer.yourAnswer = answer;
   previousAnswer.wasCorrect = isCorrect;
 
-  attack(state);
+  state.isShowAnswer = true;
+}
+export function afterShowAnswer(state) {
+  state.blockClick = true;
+  state.isShowQuestionModal = false;
   setTimeout(() => {
-    enemyAttack(state);
+    attack(state);
+    setTimeout(() => {
+      enemyAttack(state);
+    }, 1000);
   }, 300);
 }
+
 export function buyWeapon(state, weaponId) {
   let weapon = state.master.weapons.find((x) => x.id == weaponId);
   console.log(`bought weapon: weapon.name`);
@@ -366,4 +376,19 @@ export function nextTurn(state) {
   state.isShowAnswer = false;
   loadNewCard(state);
   save(state);
+}
+
+export function onAttackButton(state) {
+  nextTurn(state);
+
+  console.log("on attack button");
+  state.isShowQuestionModal = true;
+}
+export function closeQuestionModal(state) {
+  console.log("close question modal");
+  afterShowAnswer(state);
+}
+
+export function killMe(state) {
+  state.player.hp = 0;
 }

@@ -7,18 +7,23 @@
     </div>
     -->
     <div
-      :class="`battle-grid full-width ${battleAnimation}`"
+      :class="`battle half-width ${battleAnimation}`"
       @animationend="resetAnimations()"
       v-if="$store.state.player.hp > 0"
     >
       <div>
         <Enemy class="item3 half-width" v-if="this.$store.state.currentEnemy" />
         <Loot class="item3 half-width" v-if="this.$store.state.currentLoot" />
+        <button
+          v-if="this.$store.state.currentEnemy"
+          class="button half-width attack-button"
+          @click="onAttackButton()"
+          :disabled="!canAttack"
+        >attack</button>
         <BattleLog class="item4" />
+        <QuestionModal />
       </div>
       <div v-if="this.$store.state.previousAnswer">
-        <Question class="item1 half-width" />
-        <SelectAnswer class="item2 half-width" />
         <div class="half-width" v-if="this.$store.state.currentLoot">
           <button
             @click="$store.commit('collectLoot')"
@@ -29,7 +34,10 @@
     </div>
 
     <div v-else>
+      <p class="game-over">game over</p>
       <p>you dead buddy</p>
+
+      <button class="button reset-button" @click="$store.commit('reset')">start again!</button>
     </div>
   </div>
 </template>
@@ -37,9 +45,8 @@
 <script>
 import Enemy from "./Enemy";
 import Loot from "./Loot";
-import Question from "./Question";
-import SelectAnswer from "./SelectAnswer";
 import BattleLog from "./BattleLog";
+import QuestionModal from "./QuestionModal";
 
 export default {
   name: "Battle",
@@ -48,10 +55,9 @@ export default {
   },
   components: {
     Enemy,
-    SelectAnswer,
     BattleLog,
-    Question,
     Loot,
+    QuestionModal,
   },
   methods: {
     resetAnimations() {
@@ -59,10 +65,19 @@ export default {
       a.playerHit = false;
       a.playerDodge = false;
     },
+    onAttackButton() {
+      this.$store.commit("onAttackButton");
+    },
   },
   computed: {
+    canAttack: function () {
+      return !this.$store.state.blockClick;
+    },
     player: function () {
       return this.$store.state.player;
+    },
+    isShowQuestion: function () {
+      return this.$store.state.isMyTurn;
     },
     battleAnimation: function () {
       return "";
@@ -80,17 +95,23 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.game-over {
+  font-size: 3rem;
+  margin: 1rem;
+}
+.reset-button {
+  margin: 2rem;
+}
 .who-turn {
   margin: 0.5rem;
 }
-.battle-grid {
+.attack-button {
+  margin: 1rem 0 1rem 0;
+}
+.battle {
   margin: auto;
 
   display: grid;
-
-  grid-gap: 2 px;
-
-  grid-template-rows: auto;
 }
 @media screen and (min-width: 800px) {
   .battle-grid {
