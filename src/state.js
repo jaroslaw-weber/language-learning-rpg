@@ -32,6 +32,8 @@ const defaultState = {
       maxGold: 0,
     },
   },
+  blockClick: false,
+  isShowQuestionModal: false,
   reviewsCount: 0,
   notifications: {
     newLocation: false,

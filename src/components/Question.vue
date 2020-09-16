@@ -1,6 +1,6 @@
 <template>
   <div>
-    <p class="question half-width">{{ question }}</p>
+    <p class="question">{{ question }}</p>
   </div>
 </template>
 
@@ -9,7 +9,7 @@ export default {
   name: "Question",
   props: {},
   computed: {
-    question: function() {
+    question: function () {
       if (this.$store.state.currentCard) {
         return this.$store.state.currentCard.front;
       }

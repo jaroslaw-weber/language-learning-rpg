@@ -61,11 +61,11 @@ export default {
 }
 @media screen and (max-width: 800px) {
   .enemy-icon {
-    width: 120px;
-    height: 120px;
+    width: 300px;
+    height: 300px;
   }
   .enemy-hp {
-    width: 120px;
+    width: 300px;
     margin: auto;
   }
   .enemy-name {
