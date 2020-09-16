@@ -1,14 +1,21 @@
 <template>
   <div class="select-decks">
     <p>what do you want to learn?</p>
-    <button class="button deck-button" @click="loadDeck('spanish200.csv')">spanish 200 words</button>
+    <b-tooltip label="most used 200 words" position="is-bottom">
+      <button class="button deck-button" @click="loadDeck('spanish200.csv')">spanish - beginner</button>
+    </b-tooltip>
     <br />
-    <button class="button deck-button" @click="loadDeck('german500.csv')">german 500 words</button>
+    <b-tooltip label="most used 500 words" position="is-bottom">
+      <button class="button deck-button" @click="loadDeck('german500.csv')">german - beginner</button>
+    </b-tooltip>
     <br />
-    <button
-      class="button deck-button"
-      @click="loadDeck('korean-intermediate.csv')"
-    >intermediate korean</button>
+
+    <b-tooltip label="topik I vocabulary" position="is-bottom">
+      <button
+        class="button deck-button"
+        @click="loadDeck('korean-intermediate.csv')"
+      >korean - intermediate</button>
+    </b-tooltip>
 
     <div v-if="isAdvancedView">
       <hr />
@@ -43,7 +50,9 @@ front,back
 코를 골다,snore</pre>
     </div>
     <div v-else>
-      <button class="button deck-button is-primary" @click="isAdvancedView = true">something else</button>
+      <b-tooltip label="click to see more" position="is-bottom">
+        <button class="button deck-button is-primary" @click="isAdvancedView = true">something else</button>
+      </b-tooltip>
     </div>
   </div>
 </template>

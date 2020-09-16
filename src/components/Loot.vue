@@ -4,6 +4,7 @@
       class="loot wobble"
       :src="`${$store.state.publicPath}/icons/chest.svg`"
     />
+    
   </div>
 </template>
 

@@ -8,6 +8,7 @@
         @click="addGold(1000)"
       >add 1000 gold</button>
       <button v-if="isDevelopmentMode" class="button debug-button" @click="levelUp()">level up</button>
+      <button v-if="isDevelopmentMode" class="button debug-button" @click="killMe()">kill me</button>
 
       <button class="button debug-button" @click="reset()">reset game</button>
     </div>
@@ -36,6 +37,9 @@ export default {
     },
     reset() {
       this.$store.commit("reset");
+    },
+    killMe() {
+      this.$store.commit("killMe");
     },
   },
 };

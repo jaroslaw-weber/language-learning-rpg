@@ -48,6 +48,15 @@ const store = new Vuex.Store({
     loadCustomDeck(state, file) {
       logic.loadCustomDeck(state, file);
     },
+    onAttackButton(state) {
+      logic.onAttackButton(state);
+    },
+    closeQuestionModal(state) {
+      logic.closeQuestionModal(state);
+    },
+    killMe(state) {
+      logic.killMe(state);
+    },
   },
   getters: {
     getLocations: (state) => {

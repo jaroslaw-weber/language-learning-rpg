@@ -1,5 +1,5 @@
 <template>
-  <div class="answers half-width">
+  <div class="answers">
     <!--<p>select answer to attack!</p>-->
     <div class="answers">
       <div v-for="(answer, i) in answers" :key="i">
@@ -17,6 +17,7 @@
         </div>
       </div>
     </div>
+    <!--
     <div v-if="$store.state.isShowAnswer && $store.state.currentEnemy">
       <button
         class="button next-turn"
@@ -24,6 +25,7 @@
         :disabled="!$store.state.isMyTurn"
       >next turn</button>
     </div>
+    -->
   </div>
 </template>
 
@@ -69,11 +71,11 @@ export default {
 
 @media screen and (max-width: 800px) {
   .answer-button {
-    height: 2rem;
+    height: 2.5rem;
   }
   .next-turn {
     margin-top: 0.5rem;
-    height: 2.5rem;
+    height: 3rem;
   }
 }
 </style>
