@@ -1,9 +1,9 @@
 const parse = require("csv-parse/lib/sync");
 
 import clone from "clone";
-import defaultState from "./state.js";
+import defaultState from "../state.js";
 
-import masterdata from "./masterdata.js";
+import masterdata from "../masterdata.js";
 
 const green = "green";
 const red = "red";
@@ -264,6 +264,30 @@ function attack(state) {
     onEnemyKilled(state);
   }
 }
+
+function useSpellSuccess(state, spellId) {
+  if (state.previousAnswer.wasCorrect) {
+    console.log("use spell success: " + spellId);
+    let spells = state.master.spells;
+    console.log(spells);
+    let spell = spells.find((x) => x.id == spellId);
+    if (spell.type == "heal") {
+      state.player.hp += spell.effect;
+      if (state.player.hp > state.player.maxHp) {
+        state.player.hp = state.player.maxHp;
+      }
+    }
+  }
+
+  state.isShowAnswer = true;
+  //loadNewCard(state);
+  state.isMyTurn = !state.isMyTurn;
+  //console.log(state.currentEnemy);
+  if (state.currentEnemy.hp <= 0) {
+    onEnemyKilled(state);
+  }
+}
+
 export function collectLoot(state) {
   readAllLog(state);
   if (state.currentLoot) {
@@ -297,19 +321,10 @@ function readAllLog(state) {
   state.gameLog.forEach((x) => (x.isRead = true));
 }
 
-/*
-function isUnlockedNewLocation(state) {
-  return (
-    state.master.locations.find((x) => x.requiredLevel == state.player.level) !=
-    undefined
-  );
-}*/
-
 export function onAnswer(state, answer) {
   readAllLog(state);
 
   state.reviewsCount += 1;
-  //console.log(answer);
   //save info about your answer. need this to display result
   let previousAnswer = state.previousAnswer;
   let currentCard = state.currentCard;
@@ -322,38 +337,24 @@ export function onAnswer(state, answer) {
 
   state.isShowAnswer = true;
 }
+
 export function afterShowAnswer(state) {
   state.blockClick = true;
   state.isShowQuestionModal = false;
   setTimeout(() => {
-    attack(state);
+    if (state.selectedAction.type == "attack") {
+      attack(state);
+    } else if (state.selectedAction.type == "spell") {
+      let spellId = state.selectedAction.spellId;
+      useSpellSuccess(state, spellId);
+    }
     setTimeout(() => {
       enemyAttack(state);
     }, 1000);
   }, 300);
 }
 
-export function buyWeapon(state, weaponId) {
-  let weapon = state.master.weapons.find((x) => x.id == weaponId);
-  console.log(`bought weapon: weapon.name`);
-  state.player.equipped.hand = weapon;
-  state.player.gold -= weapon.price;
-}
 
-export function buyArmor(state, armorId) {
-  let armor = state.master.armor.find((x) => x.id == armorId);
-  state.player.equipped.chest = armor;
-  state.player.gold -= armor.price;
-}
-export function buyPotion(state) {
-  let cost = 10; //todo add different potions
-  let effect = 10; // todo add different potions
-  state.player.hp += effect;
-  if (state.player.hp >= state.player.maxHp) {
-    state.player.hp = state.player.maxHp;
-  }
-  state.player.gold -= cost;
-}
 export function debugAddGold(state, amount) {
   state.player.gold += amount;
   onGoldUpdated(state);
@@ -380,13 +381,21 @@ export function nextTurn(state) {
 
 export function onAttackButton(state) {
   nextTurn(state);
-
+  state.selectedAction = { type: "attack" };
   console.log("on attack button");
   state.isShowQuestionModal = true;
 }
 export function closeQuestionModal(state) {
   console.log("close question modal");
   afterShowAnswer(state);
+}
+
+export function useSpell(state, spellId) {
+  console.log("use spell : " + spellId);
+  nextTurn(state);
+  state.selectedAction = { type: "spell", spellId: spellId };
+  console.log("use spell");
+  state.isShowQuestionModal = true;
 }
 
 export function killMe(state) {

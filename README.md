@@ -6,11 +6,15 @@ to play the game just go here:
 
 https://jaroslaw-weber.github.io/language-learning-rpg/
 
+now also available on mobile!
+
 # how to play
 
-- select correct answer to attack or dodge attack
-- if you select wrong answer, your attack miss / enemy hits you
+- choose what do you want to learn
+- click attack, then select correct answer
+- if you select wrong answer, your attack miss
 - collect gold and buy stronger items in shop
+- remember to buy potions when low on hp!
 - level up and go to different locations
 
 # screenshots
@@ -20,6 +24,10 @@ https://jaroslaw-weber.github.io/language-learning-rpg/
 ![](screenshots/2.png)
 
 ![](screenshots/3.png)
+
+![](screenshots/4.png)
+
+![](screenshots/5.png)
 
 ## project setup
 
@@ -31,24 +39,6 @@ npm install
 
 ```
 npm run serve
-```
-
-### compiles and minifies for production
-
-```
-npm run build
-```
-
-### run your tests
-
-```
-npm run test
-```
-
-### lints and fixes files
-
-```
-npm run lint
 ```
 
 ### customize configuration

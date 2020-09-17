@@ -49,6 +49,7 @@ export default {
 .battle-log {
   font-size: 0.7rem;
   margin-top: 1rem;
+  margin-bottom: 1rem;
 }
 
 .unread {

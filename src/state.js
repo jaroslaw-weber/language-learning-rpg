@@ -25,6 +25,7 @@ const defaultState = {
       hand: masterdata.weapons[0],
       chest: masterdata.armor[0],
     },
+    spells: [],
     gameStats: {
       //enemies killed counter, for achievements
       enemiesKilled: [{ id: 1, count: 0 }],
@@ -47,6 +48,7 @@ const defaultState = {
   //who is attacking: me or enemy
   isMyTurn: true,
   isShowAnswer: false,
+  selectedAction: undefined,
   previousAnswer: {
     question: undefined,
     yourAnswer: undefined,

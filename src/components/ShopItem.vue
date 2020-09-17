@@ -8,7 +8,7 @@
       <img
         v-if="item.icon"
         class="item-icon"
-        :src="`${$store.state.publicPath}icons/item/${item.icon}.svg`"
+        :src="`${$store.state.publicPath}icons/${item.icon}.svg`"
       />
       <p>
         {{ item.name }}
@@ -26,10 +26,10 @@ export default {
   name: "Shop",
   props: { item: Object, alwaysShow: Boolean },
   computed: {
-    canBuy: function () {
+    canBuy: function() {
       return this.item.price <= this.$store.state.player.gold;
     },
-    itemParameters: function () {
+    itemParameters: function() {
       if (this.item.atk != undefined) {
         return `attack: ${this.item.atk}`;
       }

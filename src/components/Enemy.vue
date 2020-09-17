@@ -1,6 +1,6 @@
 <template>
   <div class="enemy half-width">
-    <p class="enemy-name">{{ currentEnemy.name }}</p>
+    <p class="enemy-name display-font">{{ currentEnemy.name }}</p>
 
     <img
       :class="`enemy-icon ${animation}`"
@@ -14,7 +14,8 @@
       :value="currentEnemy.hp"
       :show-value="true"
       size="is-large"
-    >hp: {{ currentEnemy.hp }}/{{ currentEnemy.maxHp }}</b-progress>
+      >hp: {{ currentEnemy.hp }}/{{ currentEnemy.maxHp }}</b-progress
+    >
   </div>
 </template>
 
@@ -25,18 +26,18 @@ export default {
     msg: String,
   },
   methods: {
-    shake: function () {},
-    resetAnimations: function () {
+    shake: function() {},
+    resetAnimations: function() {
       let anim = this.$store.state.animation;
       anim.enemyHit = false;
       anim.enemyDodge = false;
     },
   },
   computed: {
-    currentEnemy: function () {
+    currentEnemy: function() {
       return this.$store.state.currentEnemy;
     },
-    animation: function () {
+    animation: function() {
       if (this.$store.state.animation.enemyHit) return "shake-horizontal";
       if (this.$store.state.animation.enemyDodge) return "slide-out-left";
       return "";
@@ -50,14 +51,17 @@ export default {
   width: 300px;
   height: 300px;
   border-radius: 5px;
+  margin-bottom: 1rem;
+  margin-top: 1rem;
 }
 .enemy-hp {
-  margin-top: 1rem;
+  margin-top: 0rem;
+  margin-bottom: 1rem;
 }
 
 .enemy-name {
   margin: 0.5rem;
-  font-size: 1.5rem;
+  font-size: 3rem;
 }
 @media screen and (max-width: 800px) {
   .enemy-icon {
@@ -66,10 +70,8 @@ export default {
   }
   .enemy-hp {
     width: 300px;
-    margin: auto;
   }
   .enemy-name {
-    font-size: 1.2rem;
   }
 }
 .enemy {

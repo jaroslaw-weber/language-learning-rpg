@@ -2,7 +2,7 @@
   <div id="app">
     <div class="container">
       <div v-if="$store.state.cards">
-        <div v-if="currentScene =='battle' || currentScene == 'shop'">
+        <div v-if="currentScene == 'battle' || currentScene == 'shop'">
           <div class="container">
             <b-progress
               class="player-hp"
@@ -11,7 +11,8 @@
               :max="player.maxHp"
               :value="player.hp"
               :show-value="true"
-            >player hp: {{ player.hp }}/{{ player.maxHp }}</b-progress>
+              >player hp: {{ player.hp }}/{{ player.maxHp }}</b-progress
+            >
           </div>
         </div>
         <Menu />
@@ -65,22 +66,22 @@ export default {
   },
   methods: {},
   computed: {
-    player: function () {
+    player: function() {
       return this.$store.state.player;
     },
-    currentScene: function () {
+    currentScene: function() {
       return this.$store.state.currentScene;
     },
-    notifications: function () {
+    notifications: function() {
       return this.$store.state.notifications;
     },
-    newLocation: function () {
+    newLocation: function() {
       return this.notifications.newLocation;
     },
   },
-  mounted: function () {},
+  mounted: function() {},
   watch: {
-    newLocation: function () {
+    newLocation: function() {
       if (!this.newLocation) return; // show notification if there is new location
 
       console.log("new location snackbar!");
@@ -99,9 +100,10 @@ export default {
 </script>
 
 <style>
-@import url("https://fonts.googleapis.com/css2?family=Quicksand&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Dosis&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Lily+Script+One&display=swap");
 .player-hp {
-  width: 90%;
+  width: 100%;
 
   margin: 1rem auto 1rem auto;
 }
@@ -113,8 +115,17 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  font-family: "Quicksand", sans-serif;
   margin-bottom: 7rem;
+}
+body,
+button,
+input,
+select,
+textarea {
+  font-family: "Dosis", sans-serif !important;
+}
+.display-font {
+  font-family: "Lily Script One", cursive;
 }
 .wrapper {
   width: 600px;
@@ -146,6 +157,10 @@ export default {
   }
   .half-width {
     width: 300px;
+  }
+  .player-hp {
+    margin: 1rem;
+    width: auto;
   }
 }
 </style>
