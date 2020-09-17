@@ -1,10 +1,12 @@
 <template>
-  <div>
-    <img
-      class="loot wobble"
-      :src="`${$store.state.publicPath}/icons/chest.svg`"
-    />
-    
+  <div class="loot-group">
+    <div v-for="item in loot" :key="item.name" class="wobble">
+      <img
+        class="loot"
+        :src="`${$store.state.publicPath}/icons/item/${item.icon}.svg`"
+      />
+      <p class="item-amount">x {{ item.amount }}</p>
+    </div>
   </div>
 </template>
 
@@ -19,7 +21,11 @@ export default {
   },
   computed: {
     loot: function() {
-      return this.$store.state.currentLoot;
+      let lootList = this.$store.state.currentLoot;
+      lootList.forEach((item) => {
+        item.icon = "gold";
+      });
+      return lootList;
     },
   },
 };
@@ -28,16 +34,23 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .loot {
-  width: 250px;
-  height: 250px;
+  width: 200px;
+  height: 200px;
   border-radius: 5px;
   margin-top: 2rem;
+}
+.loot-group {
+}
+.item-amount {
+  position: relative;
+  top: -2.5rem;
+  justify-content: right;
+  color: white;
+  font-size: 1.5rem;
 }
 
 @media screen and (max-width: 800px) {
   .loot {
-    width: 200px;
-    height: 200px;
   }
 }
 

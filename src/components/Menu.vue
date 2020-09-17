@@ -2,26 +2,34 @@
   <b-navbar>
     <template slot="brand">
       <!--only mobile-->
-      <b-navbar-item class="is-hidden-desktop">level: {{ player.level }}</b-navbar-item>
-      <b-navbar-item class="is-hidden-desktop">gold: {{ player.gold }}</b-navbar-item>
-    </template>
-    <template slot="start">
-      <b-navbar-item class="is-hidden-touch">
-        <p
-          :class="levelClass"
-          @animationend="$store.state.animation.levelUp = false"
-        >level: {{ player.level }}</p>
-      </b-navbar-item>
+      <b-navbar-item class="is-hidden-desktop display-font player-level"
+        >level {{ player.level }}</b-navbar-item
+      >
+      <b-navbar-item class="is-hidden-desktop display-font"
+        >gold: {{ player.gold }}</b-navbar-item
+      >
       <b-navbar-item>
         <b-progress
-          class="progress-bar"
+          class="progress-bar player-exp"
           type="is-info"
           :max="player.nextLevelExp"
           :value="player.exp"
           :show-value="true"
-        >exp: {{ player.exp }}/{{ player.nextLevelExp }}</b-progress>
+          >exp: {{ player.exp }}/{{ player.nextLevelExp }}</b-progress
+        >
       </b-navbar-item>
-      <b-navbar-item class="is-hidden-touch">
+    </template>
+    <template slot="start">
+      <b-navbar-item class="is-hidden-touch display-font player-level">
+        <p
+          :class="levelClass"
+          @animationend="$store.state.animation.levelUp = false"
+        >
+          level {{ player.level }}
+        </p>
+      </b-navbar-item>
+
+      <b-navbar-item class="is-hidden-touch display-font">
         gold:
         {{ player.gold }}
       </b-navbar-item>
@@ -38,24 +46,35 @@
     </template>
 
     <template slot="end">
-      <b-navbar-item :active="currentScene == 'battle'" @click="changeScene('battle')">battle</b-navbar-item>
+      <b-navbar-item
+        :active="currentScene == 'battle'"
+        @click="changeScene('battle')"
+        >battle</b-navbar-item
+      >
 
-      <b-navbar-item :active="currentScene == 'shop'" @click="changeScene('shop')">shop</b-navbar-item>
+      <b-navbar-item
+        :active="currentScene == 'shop'"
+        @click="changeScene('shop')"
+        >shop</b-navbar-item
+      >
       <b-navbar-item
         :active="currentScene == 'locations'"
         @click="changeScene('locations')"
-      >locations</b-navbar-item>
+        >locations</b-navbar-item
+      >
 
       <b-navbar-dropdown label="More...">
         <b-navbar-item
           :active="currentScene == 'inventory'"
           @click="changeScene('inventory')"
-        >inventory</b-navbar-item>
+          >inventory</b-navbar-item
+        >
 
         <b-navbar-item
           :active="currentScene == 'cardlist'"
           @click="changeScene('cardlist')"
-        >vocabulary list</b-navbar-item>
+          >vocabulary list</b-navbar-item
+        >
         <!--
         <b-navbar-item
           :active="currentScene == 'achievements'"
@@ -73,7 +92,11 @@
           @click="changeScene('town')"
           >town</b-navbar-item
         >-->
-        <b-navbar-item :active="currentScene == 'debug'" @click="changeScene('debug')">settings</b-navbar-item>
+        <b-navbar-item
+          :active="currentScene == 'debug'"
+          @click="changeScene('debug')"
+          >settings</b-navbar-item
+        >
       </b-navbar-dropdown>
       <b-navbar-item>practiced: {{ $store.state.reviewsCount }}</b-navbar-item>
       <b-navbar-item class="version">v{{ $store.state.version }}</b-navbar-item>
@@ -88,19 +111,19 @@ export default {
     return {};
   },
   computed: {
-    player: function () {
+    player: function() {
       return this.$store.state.player;
     },
-    levelClass: function () {
+    levelClass: function() {
       if (this.$store.state.animation.levelUp) return "pulsate-bck level"; //on level up animation
       return "level";
     },
-    currentScene: function () {
+    currentScene: function() {
       return this.$store.state.currentScene;
     },
   },
   methods: {
-    changeScene: function (sceneName) {
+    changeScene: function(sceneName) {
       this.$store.state.currentScene = sceneName;
     },
   },
@@ -113,9 +136,11 @@ export default {
 .version {
   color: grey;
 }
-.progress-bar {
+.player-level {
+  font-size: 1rem;
 }
-.level {
+.player-exp {
+  width: 100px;
 }
 .pulsate-bck {
   -webkit-animation: pulsate-bck 0.5s ease-in-out 2 both;

@@ -4,8 +4,10 @@ import Vue from "vue";
 Vue.use(Vuex);
 
 import clone from "clone";
-import * as logic from "./logic.js";
+import * as logic from "./logic/other.js";
 import defaultState from "./state.js";
+
+import * as shop from "./logic/shop.js";
 
 //store data in this object
 const store = new Vuex.Store({
@@ -18,14 +20,14 @@ const store = new Vuex.Store({
       logic.collectLoot(state);
     },
     buyWeapon(state, weaponId) {
-      logic.buyWeapon(state, weaponId);
+      shop.buyWeapon(state, weaponId);
     },
 
     buyArmor(state, armorId) {
-      logic.buyArmor(state, armorId);
+      shop.buyArmor(state, armorId);
     },
     buyPotion(state) {
-      logic.buyPotion(state);
+      shop.buyPotion(state);
     },
     debugAddGold(state, amount) {
       logic.debugAddGold(state, amount);
@@ -57,8 +59,22 @@ const store = new Vuex.Store({
     killMe(state) {
       logic.killMe(state);
     },
+    useSpell(state, spellId) {
+      logic.useSpell(state, spellId);
+    },
+    buySpell(state, spellId) {
+      shop.buySpell(state, spellId);
+    },
   },
   getters: {
+    getMySpells: (state) => {
+      let mySpells = [];
+      state.player.spells.forEach((id) => {
+        let spell = state.master.spells.find((x) => x.id == id);
+        mySpells.push(spell);
+      });
+      return mySpells;
+    },
     getLocations: (state) => {
       console.log("getting locations");
       let locations = state.master.locations;

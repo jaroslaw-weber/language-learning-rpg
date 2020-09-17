@@ -1,26 +1,19 @@
 <template>
   <div>
-    <!--
-    <div class="who-turn">
-      <p v-if="$store.state.isMyTurn">my turn</p>
-      <p v-else>enemy turn</p>
-    </div>
-    -->
     <div
       :class="`battle half-width ${battleAnimation}`"
       @animationend="resetAnimations()"
       v-if="$store.state.player.hp > 0"
     >
       <div>
-        <Enemy class="item3 half-width" v-if="this.$store.state.currentEnemy" />
-        <Loot class="item3 half-width" v-if="this.$store.state.currentLoot" />
-        <button
-          v-if="this.$store.state.currentEnemy"
-          class="button half-width attack-button"
-          @click="onAttackButton()"
-          :disabled="!canAttack"
-        >attack</button>
-        <BattleLog class="item4" />
+        <Enemy class="half-width" v-if="this.$store.state.currentEnemy" />
+        <Loot class="half-width" v-if="this.$store.state.currentLoot" />
+        <BattleLog />
+        <AttackButton />
+
+        <div v-for="spell in $store.getters.getMySpells" :key="spell.id">
+          <SpellButton :spell="spell" />
+        </div>
         <QuestionModal />
       </div>
       <div v-if="this.$store.state.previousAnswer">
@@ -28,7 +21,9 @@
           <button
             @click="$store.commit('collectLoot')"
             class="button collect-loot half-width"
-          >collect loot</button>
+          >
+            collect loot
+          </button>
         </div>
       </div>
     </div>
@@ -37,7 +32,9 @@
       <p class="game-over">game over</p>
       <p>you dead buddy</p>
 
-      <button class="button reset-button" @click="$store.commit('reset')">start again!</button>
+      <button class="button reset-button" @click="$store.commit('reset')">
+        start again!
+      </button>
     </div>
   </div>
 </template>
@@ -47,6 +44,8 @@ import Enemy from "./Enemy";
 import Loot from "./Loot";
 import BattleLog from "./BattleLog";
 import QuestionModal from "./QuestionModal";
+import AttackButton from "./AttackButton";
+import SpellButton from "./SpellButton";
 
 export default {
   name: "Battle",
@@ -58,6 +57,8 @@ export default {
     BattleLog,
     Loot,
     QuestionModal,
+    AttackButton,
+    SpellButton,
   },
   methods: {
     resetAnimations() {
@@ -65,21 +66,22 @@ export default {
       a.playerHit = false;
       a.playerDodge = false;
     },
-    onAttackButton() {
-      this.$store.commit("onAttackButton");
+    useSpell(spellId) {
+      this.$store.commit("useSpell", spellId);
     },
   },
   computed: {
-    canAttack: function () {
+    canAttack: function() {
       return !this.$store.state.blockClick;
     },
-    player: function () {
+
+    player: function() {
       return this.$store.state.player;
     },
-    isShowQuestion: function () {
+    isShowQuestion: function() {
       return this.$store.state.isMyTurn;
     },
-    battleAnimation: function () {
+    battleAnimation: function() {
       return "";
       /*
       if (this.$store.state.animation.playerHit) {
@@ -95,6 +97,16 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.action-button {
+  height: 3rem;
+  margin-top: 0.3rem;
+}
+.action-icon {
+  width: 2rem;
+  height: 2rem;
+  margin-right: 1.5rem;
+  border-radius: 0.2rem;
+}
 .game-over {
   font-size: 3rem;
   margin: 1rem;
@@ -102,27 +114,15 @@ export default {
 .reset-button {
   margin: 2rem;
 }
-.who-turn {
-  margin: 0.5rem;
-}
-.attack-button {
-  margin: 1rem 0 1rem 0;
-}
 .battle {
   margin: auto;
 
   display: grid;
 }
 @media screen and (min-width: 800px) {
-  .battle-grid {
-    grid-template-columns: 50% 50%;
-  }
 }
 
 @media screen and (max-width: 800px) {
-  .battle-grid {
-    grid-template-columns: 100%;
-  }
 }
 
 .collect-loot {
