@@ -6,12 +6,16 @@
         <tr>
           <th>question</th>
           <th>answer</th>
+          <th>delete</th>
         </tr>
       </thead>
       <tbody>
         <tr v-for="card in $store.state.cards" :key="card.front">
           <td>{{card.front}}</td>
           <td>{{card.back}}</td>
+          <td>
+            <button class="button is-danger" @click="deleteCard(card)">x</button>
+          </td>
         </tr>
       </tbody>
     </table>
@@ -22,7 +26,13 @@
 export default {
   name: "CardList",
   props: {},
-  methods: {},
+  methods: {
+    deleteCard: function (card) {
+      let state = this.$store.state;
+      let cards = state.cards;
+      state.cards = cards.filter((x) => x.front != card.front);
+    },
+  },
   computed: {},
 };
 </script>

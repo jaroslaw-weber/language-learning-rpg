@@ -11,10 +11,7 @@
     <br />
 
     <b-tooltip label="topik I vocabulary" position="is-bottom">
-      <button
-        class="button deck-button"
-        @click="loadDeck('korean-intermediate.csv')"
-      >korean - intermediate</button>
+      <button class="button deck-button" @click="loadDeck('korean.csv')">korean - intermediate</button>
     </b-tooltip>
 
     <div v-if="isAdvancedView">
