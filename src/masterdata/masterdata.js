@@ -1,116 +1,10 @@
 //todo load masterdata from csv
-
+import exp from "./exp";
+import parameter from "./parameter";
 //define parameters here
 export default {
-  exp: [
-    {
-      level: 1,
-      exp: 0,
-    },
-    {
-      level: 2,
-      exp: 15,
-    },
-    {
-      level: 3,
-      exp: 30,
-    },
-    {
-      level: 4,
-      exp: 60,
-    },
-    {
-      level: 5,
-      exp: 100,
-    },
-    {
-      level: 6,
-      exp: 130,
-    },
-    {
-      level: 7,
-      exp: 170,
-    },
-    {
-      level: 8,
-      exp: 210,
-    },
-    {
-      level: 9,
-      exp: 240,
-    },
-    {
-      level: 10,
-      exp: 300,
-    },
-    {
-      level: 11,
-      exp: 350,
-    },
-    {
-      level: 12,
-      exp: 400,
-    },
-    {
-      level: 13,
-      exp: 460,
-    },
-    {
-      level: 14,
-      exp: 520,
-    },
-    {
-      level: 15,
-      exp: 580,
-    },
-    {
-      level: 16,
-      exp: 670,
-    },
-    {
-      level: 17,
-      exp: 790,
-    },
-    {
-      level: 18,
-      exp: 890,
-    },
-    {
-      level: 19,
-      exp: 1000,
-    },
-    {
-      level: 20,
-      exp: 1110,
-    },
-    {
-      level: 21,
-      exp: 1230,
-    },
-  ],
-  parameters: [
-    { level: 1, hp: 20 },
-    { level: 2, hp: 25 },
-    { level: 3, hp: 35 },
-    { level: 4, hp: 45 },
-    { level: 5, hp: 60 },
-    { level: 6, hp: 70 },
-    { level: 7, hp: 80 },
-    { level: 8, hp: 90 },
-    { level: 9, hp: 105 },
-    { level: 10, hp: 115 },
-    { level: 11, hp: 130 },
-    { level: 12, hp: 140 },
-    { level: 13, hp: 160 },
-    { level: 14, hp: 180 },
-    { level: 15, hp: 200 },
-    { level: 16, hp: 210 },
-    { level: 17, hp: 230 },
-    { level: 18, hp: 250 },
-    { level: 19, hp: 270 },
-    { level: 20, hp: 290 },
-    { level: 21, hp: 310 },
-  ],
+  exp: exp,
+  parameters: parameter,
   locations: [
     {
       id: 1,
@@ -174,9 +68,25 @@ export default {
       name: "vampire castle: boss stage",
       icon: "vampire-dracula",
 
-      requiredLevel: 19,
       enemies: [904],
       unlockConditions: [{ level: 19 }, { location: 4 }],
+    },
+    {
+      id: 5,
+      order: 8,
+      name: "egypt",
+      icon: "great-pyramid",
+      enemies: [13, 14, 15],
+      unlockConditions: [{ level: 20 }, { kill: 904 }],
+    },
+    {
+      id: 905,
+      order: 9,
+      name: "egypt: boss stage",
+      icon: "anubis",
+
+      enemies: [905],
+      unlockConditions: [{ level: 25 }, { location: 5 }],
     },
   ],
   //each enemy definition
@@ -291,6 +201,33 @@ export default {
       loot: [{ type: "gold", amount: 50 }],
     },
     {
+      id: 13,
+      atk: 19,
+      hp: 55,
+      name: "gold scarab",
+      image: "gold-scarab",
+      exp: 16,
+      loot: [{ type: "gold", amount: 50 }],
+    },
+    {
+      id: 14,
+      atk: 21,
+      hp: 60,
+      name: "cobra",
+      image: "cobra",
+      exp: 19,
+      loot: [{ type: "gold", amount: 50 }],
+    },
+    {
+      id: 15,
+      atk: 24,
+      hp: 65,
+      name: "sphinx",
+      image: "egyptian-sphinx",
+      exp: 22,
+      loot: [{ type: "gold", amount: 50 }],
+    },
+    {
       id: 901,
       atk: 6,
       hp: 50,
@@ -326,6 +263,15 @@ export default {
       exp: 90,
       loot: [{ type: "gold", amount: 180 }],
     },
+    {
+      id: 905,
+      atk: 40,
+      hp: 280,
+      name: "anubis",
+      image: "anubis",
+      exp: 110,
+      loot: [{ type: "gold", amount: 220 }],
+    },
   ],
   weapons: [
     { id: 1, name: "fist", icon: "item/weapon/fist", atk: 4, price: 0 },
@@ -346,7 +292,7 @@ export default {
     {
       id: 4,
       name: "broadsword",
-      icon: "weapon/broadsword",
+      icon: "item/weapon/broadsword",
       atk: 20,
       price: 200,
     },

@@ -3,7 +3,7 @@ const parse = require("csv-parse/lib/sync");
 import clone from "clone";
 import defaultState from "../state.js";
 
-import masterdata from "../masterdata.js";
+import masterdata from "../masterdata/masterdata.js";
 
 const green = "green";
 const red = "red";

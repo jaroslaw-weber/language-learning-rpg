@@ -1,5 +1,5 @@
 import vueConfig from "../vue.config.js";
-import masterdata from "./masterdata.js";
+import masterdata from "./masterdata/masterdata.js";
 import packageConfig from "../package.json";
 
 const defaultState = {
