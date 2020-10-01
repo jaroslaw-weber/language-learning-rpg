@@ -1,6 +1,8 @@
 //todo load masterdata from csv
 import exp from "./exp";
 import parameter from "./parameter";
+import weapon from "./weapon";
+
 //define parameters here
 export default {
   exp: exp,
@@ -44,7 +46,7 @@ export default {
       name: "hell",
       icon: "flaming-trident",
       enemies: [7, 8, 9],
-      unlockConditions: [{ level: 11 }, { kill: 902 }],
+      unlockConditions: [{ kill: 902 }],
     },
     {
       id: 903,
@@ -60,7 +62,7 @@ export default {
       name: "vampire castle",
       icon: "castle-ruins",
       enemies: [10, 11, 12],
-      unlockConditions: [{ level: 16 }, { kill: 903 }],
+      unlockConditions: [{ kill: 903 }],
     },
     {
       id: 904,
@@ -77,7 +79,7 @@ export default {
       name: "egypt",
       icon: "great-pyramid",
       enemies: [13, 14, 15],
-      unlockConditions: [{ level: 20 }, { kill: 904 }],
+      unlockConditions: [{ kill: 904 }],
     },
     {
       id: 905,
@@ -87,6 +89,23 @@ export default {
 
       enemies: [905],
       unlockConditions: [{ level: 25 }, { location: 5 }],
+    },
+    {
+      id: 5,
+      order: 8,
+      name: "deep sea",
+      icon: "big-wave",
+      enemies: [16, 17, 18],
+      unlockConditions: [{ kill: 905 }],
+    },
+    {
+      id: 905,
+      order: 9,
+      name: "deep sea: boss stage",
+      icon: "triton-head",
+
+      enemies: [906],
+      unlockConditions: [{ level: 30 }, { location: 5 }],
     },
   ],
   //each enemy definition
@@ -227,6 +246,34 @@ export default {
       exp: 22,
       loot: [{ type: "gold", amount: 50 }],
     },
+
+    {
+      id: 16,
+      atk: 30,
+      hp: 55,
+      name: "evil water drop",
+      image: "vile-fluid",
+      exp: 25,
+      loot: [{ type: "gold", amount: 70 }],
+    },
+    {
+      id: 17,
+      atk: 34,
+      hp: 60,
+      name: "very bad fish",
+      image: "fish-monster",
+      exp: 30,
+      loot: [{ type: "gold", amount: 75 }],
+    },
+    {
+      id: 18,
+      atk: 40,
+      hp: 65,
+      name: "sea creature",
+      image: "sea-creature",
+      exp: 33,
+      loot: [{ type: "gold", amount: 80 }],
+    },
     {
       id: 901,
       atk: 6,
@@ -272,46 +319,17 @@ export default {
       exp: 110,
       loot: [{ type: "gold", amount: 220 }],
     },
+    {
+      id: 906,
+      atk: 60,
+      hp: 360,
+      name: "triton",
+      image: "triton-head",
+      exp: 140,
+      loot: [{ type: "gold", amount: 290 }],
+    },
   ],
-  weapons: [
-    { id: 1, name: "fist", icon: "item/weapon/fist", atk: 4, price: 0 },
-    {
-      id: 2,
-      name: "dagger",
-      icon: "item/weapon/plain-dagger",
-      atk: 10,
-      price: 40,
-    },
-    {
-      id: 3,
-      name: "sword",
-      icon: "item/weapon/sword-brandish",
-      atk: 16,
-      price: 90,
-    },
-    {
-      id: 4,
-      name: "broadsword",
-      icon: "item/weapon/broadsword",
-      atk: 20,
-      price: 200,
-    },
-    {
-      id: 5,
-      name: "stiletto",
-      icon: "item/weapon/stiletto",
-      atk: 25,
-      price: 300,
-    },
-    {
-      id: 6,
-      name: "huge axe",
-      icon: "item/weapon/sharp-axe",
-      atk: 33,
-      price: 500,
-    },
-    { id: 7, name: "katana", icon: "item/weapon/katana", atk: 40, price: 600 },
-  ],
+  weapons: weapon,
   armor: [
     { id: 1, name: "shirt", def: 0, price: 0 },
     {
