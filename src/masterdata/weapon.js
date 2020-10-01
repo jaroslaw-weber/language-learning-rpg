@@ -36,9 +36,9 @@ export default [
     price: 500,
   },
   { id: 7, name: "katana", icon: "item/weapon/katana", atk: 40, price: 600 },
-  ,
+
   { id: 8, name: "machete", icon: "item/weapon/machete", atk: 44, price: 800 },
-  ,
+
   {
     id: 9,
     name: "two sabres",
@@ -46,7 +46,6 @@ export default [
     atk: 50,
     price: 1000,
   },
-  ,
   {
     id: 10,
     name: "great hammer",
