@@ -91,7 +91,7 @@ export default {
       unlockConditions: [{ level: 25 }, { location: 5 }],
     },
     {
-      id: 5,
+      id: 6,
       order: 8,
       name: "deep sea",
       icon: "big-wave",
@@ -99,7 +99,7 @@ export default {
       unlockConditions: [{ kill: 905 }],
     },
     {
-      id: 905,
+      id: 906,
       order: 9,
       name: "deep sea: boss stage",
       icon: "triton-head",
