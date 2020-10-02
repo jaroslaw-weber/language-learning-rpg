@@ -11,13 +11,14 @@
       <div class="modal-card question-modal">
         <header class="modal-card-head">
           <p class="modal-card-title">select correct answer</p>
-
+          <!--
           <button
             v-if="isShowAnswer"
             class="delete is-large"
             aria-label="close"
             @click="$store.commit('closeQuestionModal')"
           ></button>
+          -->
         </header>
         <section class="modal-card-body">
           <Question />
@@ -25,7 +26,7 @@
           <br />
           <div v-if="isShowAnswer">
             <b-icon
-              v-if="$store.state.previousAnswer.wasCorrect"
+              v-if="wasCorrect"
               class="correct-answer answer rotate-center"
               icon="smile"
               size="is-large"
@@ -36,9 +37,16 @@
               icon="frown"
               size="is-large"
             ></b-icon>
+            <br />
+            <button
+              v-if="isShowCloseButton"
+              class="delete is-large close-button"
+              aria-label="close"
+              @click="$store.commit('closeQuestionModal')"
+            ></button>
           </div>
           <div v-else>
-            <div class="wait-for-answer"></div>
+            <!-- <div class="wait-for-answer"></div>-->
           </div>
         </section>
       </div>
@@ -56,10 +64,16 @@ export default {
     SelectAnswer,
   },
   computed: {
-    isShowAnswer: function() {
+    isShowAnswer: function () {
       return this.$store.state.isShowAnswer;
     },
-    isShow: function() {
+    isShowCloseButton: function () {
+      return this.isShowAnswer && !this.wasCorrect;
+    },
+    wasCorrect: function () {
+      return this.$store.state.previousAnswer.wasCorrect;
+    },
+    isShow: function () {
       return this.$store.state.isShowQuestionModal;
     },
   },
@@ -76,6 +90,7 @@ export default {
 }
 .question-modal {
   border-radius: 10px;
+  height: 90vh;
 }
 .correct-answer {
   color: rgb(46, 88, 46);
@@ -87,7 +102,7 @@ export default {
   font-size: 2rem;
 }
 .wait-for-answer {
-  margin: 3rem;
+  margin: 9.5rem;
 }
 .tip {
   margin-top: 1rem;
