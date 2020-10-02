@@ -8,6 +8,17 @@ import masterdata from "../masterdata/masterdata.js";
 const green = "green";
 const red = "red";
 
+var gameanalytics = require("gameanalytics");
+const analytics = gameanalytics.GameAnalytics;
+analytics.initialize(
+  "26c04bc676e3c93b5a00d1d939dcd5f8",
+  "35c4b45f74580d802b5f7cf09bc09e7e9234a224"
+);
+analytics.setEnabledInfoLog(true);
+analytics.addDesignEvent("reload_page", true);
+console.log(">>reload page");
+console.log(analytics);
+
 /**
  * Shuffles array in place.
  * @param {Array} a items An array containing the items.
@@ -91,6 +102,9 @@ function enemyAttack(state) {
     state.player.hp -= dmg;
     addLog(state, `enemy hits you for ${dmg} dmg`, red);
     state.animation.playerHit = true;
+    if (state.player.hp <= 0) {
+      //todo
+    }
   }
 
   setTimeout(() => {
@@ -231,6 +245,8 @@ function onEnemyKilled(state) {
   let lootLog = lootToString(loot);
   addLog(state, lootLog);
   increaseEnemyKilledCounter(state, enemyId);
+
+  analytics.addDesignEvent("enemy_killed", enemyId);
 }
 
 function increaseEnemyKilledCounter(state, enemyId) {
@@ -336,6 +352,13 @@ export function onAnswer(state, answer) {
   previousAnswer.wasCorrect = isCorrect;
 
   state.isShowAnswer = true;
+
+  //on correct answer auto close window
+  if (isCorrect) {
+    setTimeout(() => {
+      closeQuestionModal(state);
+    }, 800);
+  }
 }
 
 export function afterShowAnswer(state) {
@@ -354,7 +377,6 @@ export function afterShowAnswer(state) {
   }, 300);
 }
 
-
 export function debugAddGold(state, amount) {
   state.player.gold += amount;
   onGoldUpdated(state);
@@ -372,6 +394,8 @@ export function goToLocation(state, locationId) {
   state.currentLocation = locationId;
   approachNewEnemy(state);
   state.currentScene = "battle";
+
+  analytics.addDesignEvent("entered_location", locationId);
 }
 export function nextTurn(state) {
   state.isShowAnswer = false;
