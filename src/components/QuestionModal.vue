@@ -90,7 +90,6 @@ export default {
 }
 .question-modal {
   border-radius: 10px;
-  height: 90vh;
 }
 .correct-answer {
   color: rgb(46, 88, 46);
