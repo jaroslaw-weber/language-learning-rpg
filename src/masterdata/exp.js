@@ -124,4 +124,32 @@ export default [
     level: 31,
     exp: 2700,
   },
+  {
+    level: 32,
+    exp: 2900,
+  },
+  {
+    level: 33,
+    exp: 3200,
+  },
+  {
+    level: 34,
+    exp: 3500,
+  },
+  {
+    level: 35,
+    exp: 3800,
+  },
+  {
+    level: 36,
+    exp: 4200,
+  },
+  {
+    level: 37,
+    exp: 4600,
+  },
+  {
+    level: 38,
+    exp: 5000,
+  },
 ];

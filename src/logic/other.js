@@ -164,7 +164,7 @@ function getNextLevelExp(state) {
 
 function isMaxLevel(state) {
   let nextLevelInfo = state.master.exp.find(
-    (x) => x.level == state.player.level + 1
+    (x) => x.level == state.player.level
   );
 
   let isMaxLevel = nextLevelInfo == undefined;
@@ -234,10 +234,13 @@ function onEnemyKilled(state) {
   let enemyId = state.currentEnemy.id;
   state.animation.enemyHit = false;
   //if max level then dont add exp
-  if (!isMaxLevel(state)) {
+
+  let isMax = isMaxLevel(state);
+  console.log(isMax);
+  if (!isMaxLevel) {
     state.player.exp += state.currentEnemy.exp;
+    updatePlayerLevel(state);
   }
-  updatePlayerLevel(state);
   let loot = state.currentEnemy.loot;
   state.currentEnemy = undefined;
   state.currentLoot = loot;

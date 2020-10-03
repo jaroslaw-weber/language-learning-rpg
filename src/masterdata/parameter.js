@@ -30,4 +30,12 @@ export default [
   { level: 29, hp: 660 },
   { level: 30, hp: 720 },
   { level: 31, hp: 780 },
+  { level: 32, hp: 820 },
+  { level: 33, hp: 840 },
+  { level: 34, hp: 870 },
+  { level: 35, hp: 900 },
+  { level: 36, hp: 930 },
+  { level: 37, hp: 960 },
+  { level: 38, hp: 990 },
+  { level: 39, hp: 1040 },
 ];
