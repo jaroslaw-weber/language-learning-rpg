@@ -7,7 +7,7 @@ import masterdata from "../masterdata/masterdata.js";
 
 const green = "green";
 const red = "red";
-
+/*
 var gameanalytics = require("gameanalytics");
 const analytics = gameanalytics.GameAnalytics;
 analytics.initialize(
@@ -18,6 +18,7 @@ analytics.setEnabledInfoLog(true);
 analytics.addDesignEvent("reload_page", true);
 console.log(">>reload page");
 console.log(analytics);
+*/
 
 /**
  * Shuffles array in place.
@@ -237,8 +238,9 @@ function onEnemyKilled(state) {
 
   let isMax = isMaxLevel(state);
   console.log(isMax);
-  if (!isMaxLevel) {
+  if (!isMax) {
     state.player.exp += state.currentEnemy.exp;
+    console.log(state.player.exp);
   }
   updatePlayerLevel(state);
   let loot = state.currentEnemy.loot;
@@ -249,7 +251,7 @@ function onEnemyKilled(state) {
   addLog(state, lootLog);
   increaseEnemyKilledCounter(state, enemyId);
 
-  analytics.addDesignEvent("enemy_killed", enemyId);
+  //analytics.addDesignEvent("enemy_killed", enemyId);
 }
 
 function increaseEnemyKilledCounter(state, enemyId) {
@@ -398,7 +400,7 @@ export function goToLocation(state, locationId) {
   approachNewEnemy(state);
   state.currentScene = "battle";
 
-  analytics.addDesignEvent("entered_location", locationId);
+  //analytics.addDesignEvent("entered_location", locationId);
 }
 export function nextTurn(state) {
   state.isShowAnswer = false;
