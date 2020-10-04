@@ -239,8 +239,8 @@ function onEnemyKilled(state) {
   console.log(isMax);
   if (!isMaxLevel) {
     state.player.exp += state.currentEnemy.exp;
-    updatePlayerLevel(state);
   }
+  updatePlayerLevel(state);
   let loot = state.currentEnemy.loot;
   state.currentEnemy = undefined;
   state.currentLoot = loot;
