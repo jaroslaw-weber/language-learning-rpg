@@ -40,6 +40,7 @@ const defaultState = {
     newLocation: false,
   },
   gameLog: [],
+  previewDeck: undefined,
   cards: undefined,
   currentEnemy: undefined,
   currentLoot: undefined,
