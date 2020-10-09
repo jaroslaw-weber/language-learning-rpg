@@ -14,6 +14,7 @@
 
       <hr />
 
+<!--
       <b-tooltip label="most used 200 words" position="is-bottom">
         <button class="button deck-button" @click="loadDeck('spanish200.csv')">
           spanish - beginner
@@ -26,7 +27,7 @@
           korean - intermediate
         </button>
       </b-tooltip>
-
+-->
       <div v-if="isAdvancedView">
         <hr />
         <p>
