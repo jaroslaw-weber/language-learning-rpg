@@ -55,6 +55,53 @@ export function reset(store) {
   location.reload();
 }
 
+export function loadPremadeDeck(state, settings) {
+  let records = state.previewDeck;
+  let length = records.length;
+
+  //difficulty of the words
+  let difficulty = settings.difficulty;
+
+  //how many words will learn at the same time
+  let wordsCount = settings.wordsCount;
+
+  //how many easy words to skip
+  let skipWords = (difficulty - 1) * 100;
+
+  if (wordsCount > length) wordsCount = length;
+  let maxSkip = length - wordsCount;
+  if (skipWords > maxSkip) skipWords = maxSkip;
+
+  //get only part of the previewed deck and make customized difficulty deck
+  let cards = records.slice(skipWords, wordsCount + skipWords);
+
+  //show difficulty
+  console.log(`skip ${skipWords} words and learn ${wordsCount} words`);
+
+  state.cards = cards;
+
+  //remove preview
+  state.previewDeck = undefined;
+
+  console.log(state.cards);
+  approachNewEnemy(state);
+  loadNewCard(state);
+}
+
+//load deck to preview but dont use it
+export function previewDeck(state, deckName) {
+  fetch(`${state.publicPath}deck/${deckName}.csv`)
+    .then((x) => x.text())
+    .then((loadedCsv) => {
+      //console.log(loadedCsv);
+
+      const records = parse(loadedCsv, {
+        columns: true,
+        skip_empty_lines: true,
+      });
+      state.previewDeck = records;
+    });
+}
 export function loadDeck(state, deckName) {
   fetch(`${state.publicPath}${deckName}`)
     .then((x) => x.text())

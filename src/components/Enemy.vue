@@ -5,7 +5,7 @@
     <img
       :class="`enemy-icon ${animation}`"
       @animationend="resetAnimations()"
-      :src="`${$store.state.publicPath}icons/${currentEnemy.image}.svg`"
+      :src="`${$store.state.publicPath}icons/enemy/${currentEnemy.image}.svg`"
     />
     <b-progress
       class="enemy-hp"
@@ -14,7 +14,8 @@
       :value="currentEnemy.hp"
       :show-value="true"
       size="is-large"
-    >hp: {{ currentEnemy.hp }}/{{ currentEnemy.maxHp }}</b-progress>
+      >hp: {{ currentEnemy.hp }}/{{ currentEnemy.maxHp }}</b-progress
+    >
   </div>
 </template>
 

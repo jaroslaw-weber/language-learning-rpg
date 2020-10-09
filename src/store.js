@@ -47,6 +47,12 @@ const store = new Vuex.Store({
     loadDeck(state, deckName) {
       logic.loadDeck(state, deckName);
     },
+    previewDeck(state, deckName) {
+      logic.previewDeck(state, deckName);
+    },
+    loadPremadeDeck(state, settings) {
+      logic.loadPremadeDeck(state, settings);
+    },
     loadCustomDeck(state, file) {
       logic.loadCustomDeck(state, file);
     },
