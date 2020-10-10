@@ -20,6 +20,24 @@ console.log(">>reload page");
 console.log(analytics);
 */
 
+var firebase = require("firebase");
+var firebaseConfig = {
+  apiKey: "AIzaSyBz6tllrMQcz3LBR8ilI9OjOvHPSSzH28Y",
+  authDomain: "language-learning-rpg.firebaseapp.com",
+  databaseURL: "https://language-learning-rpg.firebaseio.com",
+  projectId: "language-learning-rpg",
+  storageBucket: "language-learning-rpg.appspot.com",
+  messagingSenderId: "958795724052",
+  appId: "1:958795724052:web:8c26f36396f14341c57e01",
+  measurementId: "G-4DJLB0HT0Q",
+};
+
+firebase.initializeApp(firebaseConfig);
+firebase.analytics();
+firebase.analytics().logEvent("page_refresh");
+
+const analytics = firebase.analytics();
+
 /**
  * Shuffles array in place.
  * @param {Array} a items An array containing the items.
@@ -446,7 +464,7 @@ export function goToLocation(state, locationId) {
   state.currentLocation = locationId;
   approachNewEnemy(state);
   state.currentScene = "battle";
-
+  analytics.logEvent("entered_location", { location_id: locationId });
   //analytics.addDesignEvent("entered_location", locationId);
 }
 export function nextTurn(state) {
