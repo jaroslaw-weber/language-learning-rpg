@@ -212,6 +212,7 @@ function updatePlayerLevel(state) {
   if (nextLevelExp != undefined) {
     state.player.nextLevelExp = nextLevelExp;
   }
+  state.player.minExp = getMinExp(state);
   /*
   if (isLevelUp) {
     if (isUnlockedNewLocation(state)) {
@@ -226,6 +227,11 @@ function getNextLevelExp(state) {
   );
   if (nextLevelInfo == undefined) return undefined;
   return nextLevelInfo.exp;
+}
+function getMinExp(state) {
+  let info = state.master.exp.find((x) => x.level == state.player.level);
+  if (info == undefined) return undefined;
+  return info.exp;
 }
 
 function isMaxLevel(state) {

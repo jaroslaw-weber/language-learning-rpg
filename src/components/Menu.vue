@@ -12,8 +12,8 @@
         <b-progress
           class="progress-bar player-exp"
           type="is-info"
-          :max="player.nextLevelExp"
-          :value="player.exp"
+          :max="player.nextLevelExp - player.minExp"
+          :value="player.exp - player.minExp"
           :show-value="true"
           >exp: {{ player.exp }}/{{ player.nextLevelExp }}</b-progress
         >

@@ -19,8 +19,11 @@ const defaultState = {
     maxHp: masterdata.parameters[0].hp,
     gold: 0,
     exp: 0,
-    level: 1,
+    //exp bar start value
+    minExp: 0,
+    //exp bar end value (level up when exp reach this)
     nextLevelExp: masterdata.exp[1].exp,
+    level: 1,
     equipped: {
       hand: masterdata.weapons[0],
       chest: masterdata.armor[0],
